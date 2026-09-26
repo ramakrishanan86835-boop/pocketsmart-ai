@@ -1,0 +1,2063 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Jewelry Planner - PocketSmart AI</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f5f7fb;
+
+            color: #1f2937;
+
+            min-height: 100vh;
+        }
+
+        button,
+        input,
+        select {
+            font-family: inherit;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================== */
+
+        .navbar {
+
+            height: 78px;
+
+            background: white;
+
+            border-bottom: 1px solid #e5e7eb;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 28px;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+        }
+
+
+        .logo {
+
+            font-size: 25px;
+
+            font-weight: 700;
+
+            color: #111827;
+
+            text-decoration: none;
+        }
+
+
+        .logo span {
+
+            color: #6657ff;
+        }
+
+
+        .navbar-right {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+        }
+
+
+        .avatar {
+
+            width: 44px;
+
+            height: 44px;
+
+            border-radius: 50%;
+
+            background: #6657ff;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: 700;
+        }
+
+
+        .username {
+
+            font-size: 15px;
+
+            color: #111827;
+
+            font-weight: 500;
+        }
+
+
+        .logout-btn {
+
+            border: none;
+
+            background: #ef4444;
+
+            color: white;
+
+            padding: 10px 18px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            text-decoration: none;
+
+            transition: 0.2s;
+        }
+
+
+        .logout-btn:hover {
+
+            background: #dc2626;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================
+           PAGE
+        ========================== */
+
+        .page-container {
+
+            max-width: 1050px;
+
+            margin: auto;
+
+            padding: 40px 24px 70px;
+        }
+
+
+        .back-link {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            color: #6657ff;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            margin-bottom: 25px;
+
+            transition: 0.2s;
+        }
+
+
+        .back-link:hover {
+
+            color: #4f46e5;
+
+            transform: translateX(-2px);
+        }
+
+
+        /* =========================
+           HEADER
+        ========================== */
+
+        .page-header {
+
+            text-align: center;
+
+            margin-bottom: 35px;
+        }
+
+
+        .page-icon {
+
+            width: 74px;
+
+            height: 74px;
+
+            margin: 0 auto 15px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #dff7ff,
+                    #edfaff
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 38px;
+
+            box-shadow:
+                0 8px 25px rgba(
+                    14,
+                    165,
+                    233,
+                    0.12
+                );
+        }
+
+
+        .page-header h1 {
+
+            font-size: 34px;
+
+            color: #111827;
+
+            margin-bottom: 8px;
+        }
+
+
+        .page-header p {
+
+            color: #6b7280;
+
+            font-size: 15px;
+
+            max-width: 650px;
+
+            margin: auto;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           LAYOUT
+        ========================== */
+
+        .planner-layout {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr
+                1fr;
+
+            gap: 25px;
+
+            align-items: start;
+        }
+
+
+        /* =========================
+           CARDS
+        ========================== */
+
+        .planner-card,
+        .result-card {
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 30px;
+
+            box-shadow:
+                0 8px 30px rgba(
+                    15,
+                    23,
+                    42,
+                    0.07
+                );
+
+            border: 1px solid #edf0f5;
+        }
+
+
+        .card-title {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .card-title-icon {
+
+            width: 38px;
+
+            height: 38px;
+
+            border-radius: 10px;
+
+            background: #edfaff;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 20px;
+        }
+
+
+        .card-title h2 {
+
+            font-size: 20px;
+
+            color: #111827;
+        }
+
+
+        /* =========================
+           FORM
+        ========================== */
+
+        .form-group {
+
+            margin-bottom: 22px;
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            color: #374151;
+
+            margin-bottom: 8px;
+        }
+
+
+        .input-wrapper {
+
+            position: relative;
+        }
+
+
+        .currency {
+
+            position: absolute;
+
+            left: 14px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            color: #6b7280;
+
+            font-weight: 600;
+        }
+
+
+        input[type="number"],
+        select {
+
+            width: 100%;
+
+            height: 48px;
+
+            border: 1px solid #d9dde6;
+
+            border-radius: 10px;
+
+            background: white;
+
+            color: #111827;
+
+            font-size: 14px;
+
+            padding: 0 14px;
+
+            outline: none;
+
+            transition: 0.2s;
+        }
+
+
+        input[type="number"] {
+
+            padding-left: 34px;
+        }
+
+
+        input[type="number"]:focus,
+        select:focus {
+
+            border-color: #6657ff;
+
+            box-shadow:
+                0 0 0 3px rgba(
+                    102,
+                    87,
+                    255,
+                    0.10
+                );
+        }
+
+
+        /* =========================
+           IMAGE UPLOAD
+        ========================== */
+
+        .upload-area {
+
+            border: 2px dashed #d9dde6;
+
+            border-radius: 13px;
+
+            padding: 22px;
+
+            text-align: center;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
+            background: #fafbfc;
+        }
+
+
+        .upload-area:hover {
+
+            border-color: #6657ff;
+
+            background: #faf9ff;
+        }
+
+
+        .upload-icon {
+
+            font-size: 32px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .upload-title {
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            color: #374151;
+
+            margin-bottom: 5px;
+        }
+
+
+        .upload-description {
+
+            color: #9ca3af;
+
+            font-size: 11px;
+
+            line-height: 1.5;
+        }
+
+
+        #outfit {
+
+            display: none;
+        }
+
+
+        .image-preview {
+
+            display: none;
+
+            margin-top: 14px;
+
+            text-align: center;
+        }
+
+
+        .image-preview img {
+
+            width: 150px;
+
+            height: 150px;
+
+            object-fit: cover;
+
+            border-radius: 12px;
+
+            border: 1px solid #e5e7eb;
+
+            box-shadow:
+                0 5px 15px rgba(
+                    0,
+                    0,
+                    0,
+                    0.08
+                );
+        }
+
+
+        .remove-image {
+
+            display: block;
+
+            margin: 8px auto 0;
+
+            border: none;
+
+            background: transparent;
+
+            color: #ef4444;
+
+            font-size: 12px;
+
+            cursor: pointer;
+
+            font-weight: 600;
+        }
+
+
+        /* =========================
+           BUTTON
+        ========================== */
+
+        .generate-btn {
+
+            width: 100%;
+
+            height: 50px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6657ff,
+                    #7567ff
+                );
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
+            box-shadow:
+                0 6px 18px rgba(
+                    102,
+                    87,
+                    255,
+                    0.22
+                );
+        }
+
+
+        .generate-btn:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 9px 22px rgba(
+                    102,
+                    87,
+                    255,
+                    0.28
+                );
+        }
+
+
+        .generate-btn:disabled {
+
+            opacity: 0.65;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+
+        /* =========================
+           TIP
+        ========================== */
+
+        .tip {
+
+            margin-top: 18px;
+
+            padding: 13px 15px;
+
+            background: #f8f7ff;
+
+            border: 1px solid #ebe8ff;
+
+            border-radius: 10px;
+
+            color: #6b7280;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           EMPTY RESULT
+        ========================== */
+
+        .result-empty {
+
+            min-height: 400px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            color: #9ca3af;
+
+            padding: 30px;
+        }
+
+
+        .result-empty-icon {
+
+            font-size: 50px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .result-empty h3 {
+
+            color: #374151;
+
+            font-size: 18px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .result-empty p {
+
+            font-size: 13px;
+
+            max-width: 300px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           RESULT
+        ========================== */
+
+        .result-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 22px;
+        }
+
+
+        .result-header h2 {
+
+            font-size: 20px;
+
+            color: #111827;
+        }
+
+
+        .success-badge {
+
+            background: #dcfce7;
+
+            color: #15803d;
+
+            padding: 6px 10px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+
+            font-weight: 700;
+        }
+
+
+        /* =========================
+           RECOMMENDATION BOX
+        ========================== */
+
+        .recommendation-box {
+
+            border: 1px solid #e8eaf0;
+
+            border-radius: 13px;
+
+            padding: 18px;
+
+            margin-bottom: 18px;
+
+            background: #fff;
+        }
+
+
+        .recommendation-title {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 10px;
+
+            color: #374151;
+
+            font-weight: 700;
+
+            font-size: 14px;
+        }
+
+
+        .recommendation-icon {
+
+            width: 38px;
+
+            height: 38px;
+
+            border-radius: 10px;
+
+            background: #edfaff;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 20px;
+        }
+
+
+        .recommendation-text {
+
+            color: #5f6470;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+
+            white-space: pre-line;
+        }
+
+
+        /* =========================
+           AI
+        ========================== */
+
+        .ai-box {
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f5f3ff,
+                    #faf9ff
+                );
+
+            border: 1px solid #e8e4ff;
+
+            padding: 17px;
+        }
+
+
+        .ai-title {
+
+            color: #4f46e5;
+
+            font-weight: 700;
+
+            font-size: 13px;
+
+            margin-bottom: 9px;
+        }
+
+
+        .ai-text {
+
+            color: #5f6470;
+
+            font-size: 12px;
+
+            line-height: 1.7;
+
+            white-space: pre-line;
+        }
+
+
+        /* =========================
+           IMAGE INFO
+        ========================== */
+
+        .image-info {
+
+            margin-top: 15px;
+
+            padding: 12px;
+
+            border-radius: 10px;
+
+            background: #f0fdf4;
+
+            border: 1px solid #bbf7d0;
+
+            color: #166534;
+
+            font-size: 12px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           ERROR
+        ========================== */
+
+        .error-box {
+
+            display: none;
+
+            margin-top: 18px;
+
+            padding: 13px 15px;
+
+            border-radius: 10px;
+
+            background: #fef2f2;
+
+            border: 1px solid #fecaca;
+
+            color: #b91c1c;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           LOADING
+        ========================== */
+
+        .loading {
+
+            display: none;
+
+            text-align: center;
+
+            padding: 50px 20px;
+        }
+
+
+        .spinner {
+
+            width: 38px;
+
+            height: 38px;
+
+            border: 4px solid #e5e7eb;
+
+            border-top-color: #6657ff;
+
+            border-radius: 50%;
+
+            animation: spin 0.8s linear infinite;
+
+            margin: 0 auto 15px;
+        }
+
+
+        @keyframes spin {
+
+            to {
+                transform: rotate(360deg);
+            }
+
+        }
+
+
+        .loading p {
+
+            color: #6b7280;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+
+        @media (max-width: 800px) {
+
+            .planner-layout {
+
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .navbar {
+
+                padding: 0 16px;
+            }
+
+
+            .username {
+
+                display: none;
+            }
+
+
+            .page-container {
+
+                padding:
+                    28px 15px 50px;
+            }
+
+
+            .page-header h1 {
+
+                font-size: 28px;
+            }
+
+
+            .planner-card,
+            .result-card {
+
+                padding: 22px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <header class="navbar">
+
+        <a
+            href="/dashboard"
+            class="logo"
+        >
+            Pocket<span>Smart AI</span>
+        </a>
+
+
+        <div class="navbar-right">
+
+            <div
+                class="avatar"
+                id="avatar"
+            >
+                S
+            </div>
+
+
+            <span
+                class="username"
+                id="username"
+            >
+                User
+            </span>
+
+
+            <a
+                href="/logout"
+                class="logout-btn"
+            >
+                Logout
+            </a>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="page-container">
+
+
+        <a
+            href="/dashboard"
+            class="back-link"
+        >
+            ← Back to Dashboard
+        </a>
+
+
+
+        <!-- =================================================
+             HEADER
+        ================================================== -->
+
+        <section class="page-header">
+
+            <div class="page-icon">
+                💎
+            </div>
+
+
+            <h1>
+                Jewelry Planner
+            </h1>
+
+
+            <p>
+                Get personalized jewelry recommendations
+                based on your occasion, style, budget and
+                optional outfit image.
+            </p>
+
+        </section>
+
+
+
+        <div class="planner-layout">
+
+
+            <!-- =================================================
+                 FORM
+            ================================================== -->
+
+            <section class="planner-card">
+
+                <div class="card-title">
+
+                    <div class="card-title-icon">
+                        💎
+                    </div>
+
+                    <h2>
+                        Tell Us Your Preferences
+                    </h2>
+
+                </div>
+
+
+
+                <!-- BUDGET -->
+
+                <div class="form-group">
+
+                    <label for="budget">
+                        Jewelry Budget
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <span class="currency">
+                            ₹
+                        </span>
+
+
+                        <input
+                            type="number"
+                            id="budget"
+                            min="1"
+                            placeholder="Enter your budget"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- OCCASION -->
+
+                <div class="form-group">
+
+                    <label for="occasion">
+                        Occasion
+                    </label>
+
+
+                    <select id="occasion">
+
+                        <option value="wedding">
+                            💍 Wedding
+                        </option>
+
+                        <option value="engagement">
+                            💐 Engagement
+                        </option>
+
+                        <option value="party">
+                            🎉 Party
+                        </option>
+
+                        <option value="festival">
+                            🪔 Festival
+                        </option>
+
+                        <option value="daily">
+                            🌸 Daily Wear
+                        </option>
+
+                        <option value="office">
+                            💼 Office
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- STYLE -->
+
+                <div class="form-group">
+
+                    <label for="style">
+                        Jewelry Style
+                    </label>
+
+
+                    <select id="style">
+
+                        <option value="traditional">
+                            Traditional
+                        </option>
+
+                        <option value="modern">
+                            Modern
+                        </option>
+
+                        <option value="minimal">
+                            Minimal
+                        </option>
+
+                        <option value="elegant">
+                            Elegant
+                        </option>
+
+                        <option value="statement">
+                            Statement
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- IMAGE -->
+
+                <div class="form-group">
+
+                    <label>
+                        Outfit Image
+                        <span
+                            style="
+                                color:#9ca3af;
+                                font-weight:400;
+                            "
+                        >
+                            (Optional)
+                        </span>
+                    </label>
+
+
+                    <label
+                        for="outfit"
+                        class="upload-area"
+                        id="uploadArea"
+                    >
+
+                        <div class="upload-icon">
+                            📷
+                        </div>
+
+
+                        <div class="upload-title">
+                            Upload your outfit
+                        </div>
+
+
+                        <div class="upload-description">
+                            JPG or PNG · Maximum 5MB<br>
+                            Gemini can analyze the outfit
+                            and suggest matching jewelry.
+                        </div>
+
+                    </label>
+
+
+                    <input
+                        type="file"
+                        id="outfit"
+                        accept="image/jpeg,image/png"
+                    >
+
+
+                    <div
+                        class="image-preview"
+                        id="imagePreview"
+                    >
+
+                        <img
+                            id="previewImage"
+                            alt="Outfit preview"
+                        >
+
+
+                        <button
+                            type="button"
+                            class="remove-image"
+                            id="removeImage"
+                        >
+                            Remove image
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- BUTTON -->
+
+                <button
+                    type="button"
+                    class="generate-btn"
+                    id="generateBtn"
+                >
+                    ✨ Generate Jewelry Recommendation
+                </button>
+
+
+
+                <!-- TIP -->
+
+                <div class="tip">
+
+                    💡 <strong>Tip:</strong>
+                    Uploading an outfit image allows
+                    Gemini to consider visible colors,
+                    style and neckline when generating
+                    recommendations.
+
+                </div>
+
+
+
+                <!-- ERROR -->
+
+                <div
+                    class="error-box"
+                    id="errorBox"
+                ></div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 RESULT
+            ================================================== -->
+
+            <section class="result-card">
+
+
+                <!-- EMPTY -->
+
+                <div
+                    class="result-empty"
+                    id="emptyState"
+                >
+
+                    <div class="result-empty-icon">
+                        💎
+                    </div>
+
+
+                    <h3>
+                        Your jewelry recommendation
+                        will appear here
+                    </h3>
+
+
+                    <p>
+                        Enter your preferences and
+                        optionally upload an outfit image
+                        to get an AI-powered recommendation.
+                    </p>
+
+                </div>
+
+
+
+                <!-- LOADING -->
+
+                <div
+                    class="loading"
+                    id="loadingState"
+                >
+
+                    <div class="spinner"></div>
+
+
+                    <p>
+                        PocketSmart AI is analyzing your
+                        preferences and outfit...
+                    </p>
+
+                </div>
+
+
+
+                <!-- RESULT -->
+
+                <div
+                    id="resultState"
+                    style="display:none;"
+                >
+
+
+                    <div class="result-header">
+
+                        <h2>
+                            ✨ Your Recommendation
+                        </h2>
+
+
+                        <span class="success-badge">
+                            AI Generated
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- BASIC RECOMMENDATION -->
+
+                    <div class="recommendation-box">
+
+                        <div
+                            class="recommendation-title"
+                        >
+
+                            <div
+                                class="recommendation-icon"
+                            >
+                                💎
+                            </div>
+
+
+                            Jewelry Recommendation
+
+                        </div>
+
+
+                        <div
+                            class="recommendation-text"
+                            id="recommendation"
+                        ></div>
+
+                    </div>
+
+
+
+                    <!-- IMAGE STATUS -->
+
+                    <div
+                        class="image-info"
+                        id="imageInfo"
+                        style="display:none;"
+                    ></div>
+
+
+
+                    <!-- AI -->
+
+                    <div class="ai-box">
+
+                        <div class="ai-title">
+                            🤖 PocketSmart AI
+                        </div>
+
+
+                        <div
+                            class="ai-text"
+                            id="aiExplanation"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+
+        /* =====================================================
+           SESSION
+        ====================================================== */
+
+        async function loadUser() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/session-info"
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (!data.logged_in) {
+
+                    window.location.href =
+                        "/login";
+
+                    return;
+                }
+
+
+                if (data.user) {
+
+                    const name =
+                        data.user.name
+                        || "User";
+
+
+                    document.getElementById(
+                        "username"
+                    ).textContent =
+                        name;
+
+
+                    document.getElementById(
+                        "avatar"
+                    ).textContent =
+                        name
+                            .charAt(0)
+                            .toUpperCase();
+
+                }
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Session error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        loadUser();
+
+
+
+        /* =====================================================
+           IMAGE ELEMENTS
+        ====================================================== */
+
+        const outfitInput =
+            document.getElementById(
+                "outfit"
+            );
+
+
+        const uploadArea =
+            document.getElementById(
+                "uploadArea"
+            );
+
+
+        const imagePreview =
+            document.getElementById(
+                "imagePreview"
+            );
+
+
+        const previewImage =
+            document.getElementById(
+                "previewImage"
+            );
+
+
+        const removeImage =
+            document.getElementById(
+                "removeImage"
+            );
+
+
+
+        /* =====================================================
+           IMAGE PREVIEW
+        ====================================================== */
+
+        outfitInput.addEventListener(
+            "change",
+            function () {
+
+                const file =
+                    this.files[0];
+
+
+                if (!file) {
+
+                    return;
+                }
+
+
+                /* Check file type */
+
+                const validTypes = [
+                    "image/jpeg",
+                    "image/png"
+                ];
+
+
+                if (
+                    !validTypes.includes(
+                        file.type
+                    )
+                ) {
+
+                    showError(
+                        "Please upload a JPG or PNG image."
+                    );
+
+                    this.value = "";
+
+                    return;
+                }
+
+
+                /* Check size */
+
+                if (
+                    file.size >
+                    5 * 1024 * 1024
+                ) {
+
+                    showError(
+                        "Image size must be less than 5MB."
+                    );
+
+                    this.value = "";
+
+                    return;
+                }
+
+
+                hideError();
+
+
+                const reader =
+                    new FileReader();
+
+
+                reader.onload =
+                    function (event) {
+
+                        previewImage.src =
+                            event.target.result;
+
+
+                        imagePreview.style.display =
+                            "block";
+
+
+                        uploadArea.style.display =
+                            "none";
+
+                    };
+
+
+                reader.readAsDataURL(
+                    file
+                );
+
+            }
+        );
+
+
+
+        /* =====================================================
+           REMOVE IMAGE
+        ====================================================== */
+
+        removeImage.addEventListener(
+            "click",
+            function () {
+
+                outfitInput.value = "";
+
+                previewImage.src = "";
+
+                imagePreview.style.display =
+                    "none";
+
+                uploadArea.style.display =
+                    "block";
+
+            }
+        );
+
+
+
+        /* =====================================================
+           GENERATE
+        ====================================================== */
+
+        async function generateJewelryRecommendation() {
+
+
+            const budget =
+                Number(
+                    document.getElementById(
+                        "budget"
+                    ).value
+                );
+
+
+            const occasion =
+                document.getElementById(
+                    "occasion"
+                ).value;
+
+
+            const style =
+                document.getElementById(
+                    "style"
+                ).value;
+
+
+            const file =
+                outfitInput.files[0];
+
+
+
+            if (
+                !budget ||
+                budget <= 0
+            ) {
+
+                showError(
+                    "Please enter a valid jewelry budget."
+                );
+
+                return;
+            }
+
+
+            hideError();
+
+
+            document.getElementById(
+                "emptyState"
+            ).style.display =
+                "none";
+
+
+            document.getElementById(
+                "resultState"
+            ).style.display =
+                "none";
+
+
+            document.getElementById(
+                "loadingState"
+            ).style.display =
+                "block";
+
+
+            const button =
+                document.getElementById(
+                    "generateBtn"
+                );
+
+
+            button.disabled =
+                true;
+
+
+            button.textContent =
+                "⏳ Analyzing...";
+
+
+
+            try {
+
+
+                /*
+                 * IMPORTANT:
+                 * We use FormData because the
+                 * outfit image is being uploaded.
+                 */
+
+                const formData =
+                    new FormData();
+
+
+                formData.append(
+                    "budget",
+                    budget
+                );
+
+
+                formData.append(
+                    "occasion",
+                    occasion
+                );
+
+
+                formData.append(
+                    "style",
+                    style
+                );
+
+
+                if (file) {
+
+                    formData.append(
+                        "outfit",
+                        file
+                    );
+
+                }
+
+
+
+                const response =
+                    await fetch(
+                        "/generate-jewelry",
+                        {
+                            method: "POST",
+                            body: formData
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.detail
+                        ||
+                        "Unable to generate jewelry recommendation."
+                    );
+
+                }
+
+
+                if (
+                    data.success === false
+                ) {
+
+                    throw new Error(
+                        data.message
+                        ||
+                        "Recommendation failed."
+                    );
+
+                }
+
+
+                displayResults(
+                    data,
+                    Boolean(file)
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Jewelry error:",
+                    error
+                );
+
+
+                showError(
+                    error.message
+                    ||
+                    "Something went wrong. Please try again."
+                );
+
+            }
+
+            finally {
+
+                document.getElementById(
+                    "loadingState"
+                ).style.display =
+                    "none";
+
+
+                button.disabled =
+                    false;
+
+
+                button.textContent =
+                    "✨ Generate Jewelry Recommendation";
+
+            }
+
+        }
+
+
+
+        /* =====================================================
+           DISPLAY RESULTS
+        ====================================================== */
+
+        function displayResults(
+            data,
+            imageUploaded
+        ) {
+
+
+            document.getElementById(
+                "resultState"
+            ).style.display =
+                "block";
+
+
+
+            /*
+             * Your current backend returns
+             * recommendation and budget_advice.
+             */
+
+            const recommendation =
+                data.recommendation
+                ||
+                "Jewelry recommendations have been generated based on your selected occasion, style and budget.";
+
+
+            document.getElementById(
+                "recommendation"
+            ).textContent =
+                recommendation;
+
+
+
+            /*
+             * AI explanation
+             */
+
+            const explanation =
+                data.ai_explanation
+                ||
+                data.message
+                ||
+                "Your jewelry recommendation has been created based on your preferences.";
+
+
+            document.getElementById(
+                "aiExplanation"
+            ).textContent =
+                explanation;
+
+
+
+            /*
+             * Image status
+             */
+
+            const imageInfo =
+                document.getElementById(
+                    "imageInfo"
+                );
+
+
+            if (imageUploaded) {
+
+                imageInfo.style.display =
+                    "block";
+
+
+                imageInfo.innerHTML =
+                    "📷 <strong>Outfit image analyzed:</strong> Gemini was given your uploaded image along with your occasion, style and budget.";
+
+            }
+
+            else {
+
+                imageInfo.style.display =
+                    "block";
+
+
+                imageInfo.innerHTML =
+                    "💡 No outfit image was uploaded. The recommendation is based on your occasion, style and budget.";
+
+            }
+
+        }
+
+
+
+        /* =====================================================
+           ERROR
+        ====================================================== */
+
+        function showError(message) {
+
+            const box =
+                document.getElementById(
+                    "errorBox"
+                );
+
+
+            box.textContent =
+                message;
+
+
+            box.style.display =
+                "block";
+
+        }
+
+
+        function hideError() {
+
+            document.getElementById(
+                "errorBox"
+            ).style.display =
+                "none";
+
+        }
+
+
+
+        /* =====================================================
+           BUTTON
+        ====================================================== */
+
+        document
+            .getElementById(
+                "generateBtn"
+            )
+            .addEventListener(
+                "click",
+                generateJewelryRecommendation
+            );
+
+    </script>
+
+</body>
+
+</html>

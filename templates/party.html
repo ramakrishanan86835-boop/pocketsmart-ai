@@ -1,0 +1,1932 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Party Planner - PocketSmart AI</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f5f7fb;
+
+            color: #1f2937;
+
+            min-height: 100vh;
+        }
+
+        button,
+        input,
+        select {
+            font-family: inherit;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================== */
+
+        .navbar {
+
+            height: 78px;
+
+            background: white;
+
+            border-bottom: 1px solid #e5e7eb;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 28px;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+        }
+
+
+        .logo {
+
+            font-size: 25px;
+
+            font-weight: 700;
+
+            color: #111827;
+
+            text-decoration: none;
+        }
+
+
+        .logo span {
+
+            color: #6657ff;
+        }
+
+
+        .navbar-right {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+        }
+
+
+        .avatar {
+
+            width: 44px;
+
+            height: 44px;
+
+            border-radius: 50%;
+
+            background: #6657ff;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: 700;
+        }
+
+
+        .username {
+
+            font-size: 15px;
+
+            color: #111827;
+
+            font-weight: 500;
+        }
+
+
+        .logout-btn {
+
+            border: none;
+
+            background: #ef4444;
+
+            color: white;
+
+            padding: 10px 18px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            text-decoration: none;
+
+            transition: 0.2s;
+        }
+
+
+        .logout-btn:hover {
+
+            background: #dc2626;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================
+           PAGE
+        ========================== */
+
+        .page-container {
+
+            max-width: 1050px;
+
+            margin: auto;
+
+            padding: 40px 24px 70px;
+        }
+
+
+        .back-link {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            color: #6657ff;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            margin-bottom: 25px;
+        }
+
+
+        .back-link:hover {
+
+            color: #4f46e5;
+
+            transform: translateX(-2px);
+        }
+
+
+        /* =========================
+           HEADER
+        ========================== */
+
+        .page-header {
+
+            text-align: center;
+
+            margin-bottom: 35px;
+        }
+
+
+        .page-icon {
+
+            width: 74px;
+
+            height: 74px;
+
+            margin: 0 auto 15px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffe3ef,
+                    #fff0f6
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 38px;
+
+            box-shadow:
+                0 8px 25px rgba(
+                    236,
+                    72,
+                    153,
+                    0.12
+                );
+        }
+
+
+        .page-header h1 {
+
+            font-size: 34px;
+
+            color: #111827;
+
+            margin-bottom: 8px;
+        }
+
+
+        .page-header p {
+
+            color: #6b7280;
+
+            font-size: 15px;
+
+            max-width: 650px;
+
+            margin: auto;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           GRID
+        ========================== */
+
+        .planner-layout {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr
+                1fr;
+
+            gap: 25px;
+
+            align-items: start;
+        }
+
+
+        /* =========================
+           CARD
+        ========================== */
+
+        .planner-card,
+        .result-card {
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 30px;
+
+            box-shadow:
+                0 8px 30px rgba(
+                    15,
+                    23,
+                    42,
+                    0.07
+                );
+
+            border: 1px solid #edf0f5;
+        }
+
+
+        .card-title {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .card-title-icon {
+
+            width: 38px;
+
+            height: 38px;
+
+            border-radius: 10px;
+
+            background: #fff0f6;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 20px;
+        }
+
+
+        .card-title h2 {
+
+            font-size: 20px;
+
+            color: #111827;
+        }
+
+
+        /* =========================
+           FORM
+        ========================== */
+
+        .form-group {
+
+            margin-bottom: 22px;
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            color: #374151;
+
+            margin-bottom: 8px;
+        }
+
+
+        .input-wrapper {
+
+            position: relative;
+        }
+
+
+        .currency {
+
+            position: absolute;
+
+            left: 14px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            color: #6b7280;
+
+            font-weight: 600;
+        }
+
+
+        input,
+        select {
+
+            width: 100%;
+
+            height: 48px;
+
+            border: 1px solid #d9dde6;
+
+            border-radius: 10px;
+
+            background: white;
+
+            color: #111827;
+
+            font-size: 14px;
+
+            padding: 0 14px;
+
+            outline: none;
+
+            transition: 0.2s;
+        }
+
+
+        input[type="number"] {
+
+            padding-left: 34px;
+        }
+
+
+        input:focus,
+        select:focus {
+
+            border-color: #6657ff;
+
+            box-shadow:
+                0 0 0 3px rgba(
+                    102,
+                    87,
+                    255,
+                    0.10
+                );
+        }
+
+
+        /* =========================
+           BUTTON
+        ========================== */
+
+        .generate-btn {
+
+            width: 100%;
+
+            height: 50px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6657ff,
+                    #7567ff
+                );
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
+            box-shadow:
+                0 6px 18px rgba(
+                    102,
+                    87,
+                    255,
+                    0.22
+                );
+        }
+
+
+        .generate-btn:hover {
+
+            transform: translateY(-2px);
+        }
+
+
+        .generate-btn:disabled {
+
+            opacity: 0.65;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+
+        /* =========================
+           TIP
+        ========================== */
+
+        .tip {
+
+            margin-top: 18px;
+
+            padding: 13px 15px;
+
+            background: #f8f7ff;
+
+            border: 1px solid #ebe8ff;
+
+            border-radius: 10px;
+
+            color: #6b7280;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           RESULT
+        ========================== */
+
+        .result-empty {
+
+            min-height: 350px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            color: #9ca3af;
+        }
+
+
+        .result-empty-icon {
+
+            font-size: 50px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .result-empty h3 {
+
+            color: #374151;
+
+            font-size: 18px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .result-empty p {
+
+            font-size: 13px;
+
+            max-width: 300px;
+
+            line-height: 1.6;
+        }
+
+
+        .result-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 22px;
+        }
+
+
+        .result-header h2 {
+
+            font-size: 20px;
+
+            color: #111827;
+        }
+
+
+        .success-badge {
+
+            background: #dcfce7;
+
+            color: #15803d;
+
+            padding: 6px 10px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+
+            font-weight: 700;
+        }
+
+
+        /* =========================
+           BREAKDOWN
+        ========================== */
+
+        .breakdown {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 11px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .breakdown-item {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 14px;
+
+            border: 1px solid #e8eaf0;
+
+            border-radius: 11px;
+
+            background: #fff;
+        }
+
+
+        .breakdown-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        .breakdown-icon {
+
+            width: 40px;
+
+            height: 40px;
+
+            border-radius: 10px;
+
+            background: #f0eeff;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 19px;
+        }
+
+
+        .breakdown-name {
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            color: #374151;
+        }
+
+
+        .breakdown-percent {
+
+            font-size: 11px;
+
+            color: #9ca3af;
+
+            margin-top: 3px;
+        }
+
+
+        .breakdown-price {
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            color: #4f46e5;
+        }
+
+
+        /* =========================
+           SUMMARY
+        ========================== */
+
+        .summary {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr
+                1fr;
+
+            gap: 10px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .summary-box {
+
+            background: #f8f9fc;
+
+            border-radius: 11px;
+
+            padding: 14px;
+        }
+
+
+        .summary-box span {
+
+            display: block;
+
+            color: #6b7280;
+
+            font-size: 11px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .summary-box strong {
+
+            font-size: 18px;
+
+            color: #111827;
+        }
+
+
+        .summary-box.remaining {
+
+            background: #effdf4;
+        }
+
+
+        .summary-box.remaining strong {
+
+            color: #15803d;
+        }
+
+
+        /* =========================
+           AI
+        ========================== */
+
+        .ai-box {
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f5f3ff,
+                    #faf9ff
+                );
+
+            border: 1px solid #e8e4ff;
+
+            padding: 17px;
+        }
+
+
+        .ai-title {
+
+            color: #4f46e5;
+
+            font-weight: 700;
+
+            font-size: 13px;
+
+            margin-bottom: 9px;
+        }
+
+
+        .ai-text {
+
+            color: #5f6470;
+
+            font-size: 12px;
+
+            line-height: 1.7;
+
+            white-space: pre-line;
+        }
+
+
+        /* =========================
+           ERROR
+        ========================== */
+
+        .error-box {
+
+            display: none;
+
+            margin-top: 18px;
+
+            padding: 13px 15px;
+
+            border-radius: 10px;
+
+            background: #fef2f2;
+
+            border: 1px solid #fecaca;
+
+            color: #b91c1c;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           LOADING
+        ========================== */
+
+        .loading {
+
+            display: none;
+
+            text-align: center;
+
+            padding: 45px 20px;
+        }
+
+
+        .spinner {
+
+            width: 38px;
+
+            height: 38px;
+
+            border: 4px solid #e5e7eb;
+
+            border-top-color: #6657ff;
+
+            border-radius: 50%;
+
+            animation: spin .8s linear infinite;
+
+            margin: auto auto 15px;
+        }
+
+
+        @keyframes spin {
+
+            to {
+                transform: rotate(360deg);
+            }
+
+        }
+
+
+        @media (max-width: 800px) {
+
+            .planner-layout {
+
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .navbar {
+
+                padding: 0 16px;
+            }
+
+
+            .username {
+
+                display: none;
+            }
+
+
+            .page-container {
+
+                padding:
+                    28px 15px 50px;
+            }
+
+
+            .page-header h1 {
+
+                font-size: 28px;
+            }
+
+
+            .planner-card,
+            .result-card {
+
+                padding: 22px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <header class="navbar">
+
+        <a
+            href="/dashboard"
+            class="logo"
+        >
+            Pocket<span>Smart AI</span>
+        </a>
+
+
+        <div class="navbar-right">
+
+            <div
+                class="avatar"
+                id="avatar"
+            >
+                S
+            </div>
+
+
+            <span
+                class="username"
+                id="username"
+            >
+                User
+            </span>
+
+
+            <a
+                href="/logout"
+                class="logout-btn"
+            >
+                Logout
+            </a>
+
+        </div>
+
+    </header>
+
+
+
+    <main class="page-container">
+
+
+        <a
+            href="/dashboard"
+            class="back-link"
+        >
+            ← Back to Dashboard
+        </a>
+
+
+
+        <!-- HEADER -->
+
+        <section class="page-header">
+
+            <div class="page-icon">
+                🎉
+            </div>
+
+
+            <h1>
+                Party Planner
+            </h1>
+
+
+            <p>
+                Plan your perfect event with a smart
+                budget breakdown for food, venue,
+                decorations and other expenses.
+            </p>
+
+        </section>
+
+
+
+        <div class="planner-layout">
+
+
+            <!-- FORM -->
+
+            <section class="planner-card">
+
+                <div class="card-title">
+
+                    <div class="card-title-icon">
+                        🎊
+                    </div>
+
+                    <h2>
+                        Tell Us About Your Event
+                    </h2>
+
+                </div>
+
+
+
+                <!-- BUDGET -->
+
+                <div class="form-group">
+
+                    <label for="budget">
+                        Party Budget
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <span class="currency">
+                            ₹
+                        </span>
+
+
+                        <input
+                            type="number"
+                            id="budget"
+                            min="1"
+                            placeholder="Enter your budget"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- GUESTS -->
+
+                <div class="form-group">
+
+                    <label for="guests">
+                        Number of Guests
+                    </label>
+
+
+                    <input
+                        type="number"
+                        id="guests"
+                        min="1"
+                        placeholder="Example: 50"
+                    >
+
+                </div>
+
+
+
+                <!-- EVENT -->
+
+                <div class="form-group">
+
+                    <label for="event_type">
+                        Event Type
+                    </label>
+
+
+                    <select id="event_type">
+
+                        <option value="birthday">
+                            🎂 Birthday Party
+                        </option>
+
+                        <option value="wedding">
+                            💍 Wedding
+                        </option>
+
+                        <option value="engagement">
+                            💐 Engagement
+                        </option>
+
+                        <option value="corporate">
+                            💼 Corporate Event
+                        </option>
+
+                        <option value="family">
+                            👨‍👩‍👧 Family Function
+                        </option>
+
+                        <option value="other">
+                            🎉 Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- VENUE -->
+
+                <div class="form-group">
+
+                    <label for="venue">
+                        Venue Preference
+                    </label>
+
+
+                    <select id="venue">
+
+                        <option value="home">
+                            🏠 Home
+                        </option>
+
+                        <option value="hall">
+                            🏛️ Function Hall
+                        </option>
+
+                        <option value="outdoor">
+                            🌳 Outdoor
+                        </option>
+
+                        <option value="restaurant">
+                            🍽️ Restaurant
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <button
+                    class="generate-btn"
+                    id="generateBtn"
+                    type="button"
+                >
+                    ✨ Generate Party Plan
+                </button>
+
+
+
+                <div class="tip">
+
+                    💡 <strong>Tip:</strong>
+                    Enter your total event budget.
+                    PocketSmart AI will divide it into
+                    practical categories such as food,
+                    venue and decoration.
+
+                </div>
+
+
+
+                <div
+                    class="error-box"
+                    id="errorBox"
+                ></div>
+
+            </section>
+
+
+
+            <!-- RESULT -->
+
+            <section class="result-card">
+
+
+                <div
+                    class="result-empty"
+                    id="emptyState"
+                >
+
+                    <div class="result-empty-icon">
+                        🎊
+                    </div>
+
+
+                    <h3>
+                        Your party plan will appear here
+                    </h3>
+
+
+                    <p>
+                        Enter your event details and
+                        budget, then generate your
+                        personalized party plan.
+                    </p>
+
+                </div>
+
+
+
+                <div
+                    class="loading"
+                    id="loadingState"
+                >
+
+                    <div class="spinner"></div>
+
+
+                    <p>
+                        PocketSmart AI is preparing
+                        your party plan...
+                    </p>
+
+                </div>
+
+
+
+                <div
+                    id="resultState"
+                    style="display:none;"
+                >
+
+                    <div class="result-header">
+
+                        <h2>
+                            ✨ Your Party Plan
+                        </h2>
+
+
+                        <span class="success-badge">
+                            Budget Planned
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="breakdown"
+                        id="breakdown"
+                    ></div>
+
+
+
+                    <div class="summary">
+
+
+                        <div class="summary-box">
+
+                            <span>
+                                Total Budget
+                            </span>
+
+                            <strong
+                                id="totalBudget"
+                            >
+                                ₹0
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="summary-box remaining"
+                        >
+
+                            <span>
+                                Planned Amount
+                            </span>
+
+                            <strong
+                                id="plannedAmount"
+                            >
+                                ₹0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="ai-box">
+
+                        <div class="ai-title">
+                            🤖 PocketSmart AI
+                        </div>
+
+
+                        <div
+                            class="ai-text"
+                            id="aiExplanation"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+
+    <script>
+
+
+        /* ==============================================
+           LOAD USER
+        =============================================== */
+
+        async function loadUser() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/session-info"
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (!data.logged_in) {
+
+                    window.location.href =
+                        "/login";
+
+                    return;
+                }
+
+
+                if (data.user) {
+
+                    const name =
+                        data.user.name
+                        || "User";
+
+
+                    document.getElementById(
+                        "username"
+                    ).textContent = name;
+
+
+                    document.getElementById(
+                        "avatar"
+                    ).textContent =
+                        name
+                            .charAt(0)
+                            .toUpperCase();
+
+                }
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    error
+                );
+
+            }
+
+        }
+
+
+        loadUser();
+
+
+
+        /* ==============================================
+           MONEY
+        =============================================== */
+
+        function formatMoney(value) {
+
+            return "₹" +
+                Number(value).toLocaleString(
+                    "en-IN",
+                    {
+                        maximumFractionDigits: 0
+                    }
+                );
+
+        }
+
+
+
+        /* ==============================================
+           ICON
+        =============================================== */
+
+        function getIcon(category) {
+
+            const icons = {
+
+                venue: "🏛️",
+
+                food: "🍽️",
+
+                decoration: "🎈",
+
+                miscellaneous: "🎁",
+
+                default: "🎉"
+
+            };
+
+
+            return icons[
+                String(category)
+                    .toLowerCase()
+            ]
+            || icons.default;
+
+        }
+
+
+
+        /* ==============================================
+           GENERATE
+        =============================================== */
+
+        async function generatePartyPlan() {
+
+
+            const budget =
+                Number(
+                    document.getElementById(
+                        "budget"
+                    ).value
+                );
+
+
+            const guests =
+                Number(
+                    document.getElementById(
+                        "guests"
+                    ).value
+                );
+
+
+            const eventType =
+                document.getElementById(
+                    "event_type"
+                ).value;
+
+
+            const venue =
+                document.getElementById(
+                    "venue"
+                ).value;
+
+
+
+            if (!budget || budget <= 0) {
+
+                showError(
+                    "Please enter a valid party budget."
+                );
+
+                return;
+            }
+
+
+            if (!guests || guests <= 0) {
+
+                showError(
+                    "Please enter the number of guests."
+                );
+
+                return;
+            }
+
+
+            hideError();
+
+
+            document.getElementById(
+                "emptyState"
+            ).style.display = "none";
+
+
+            document.getElementById(
+                "resultState"
+            ).style.display = "none";
+
+
+            document.getElementById(
+                "loadingState"
+            ).style.display = "block";
+
+
+            const button =
+                document.getElementById(
+                    "generateBtn"
+                );
+
+
+            button.disabled = true;
+
+            button.textContent =
+                "⏳ Generating...";
+
+
+            try {
+
+
+                const response =
+                    await fetch(
+                        "/generate-party",
+                        {
+
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                budget:
+                                    budget,
+
+                                guests:
+                                    guests,
+
+                                event_type:
+                                    eventType,
+
+                                venue:
+                                    venue
+
+                            })
+
+                        }
+                    );
+
+
+
+                const data =
+                    await response.json();
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.detail
+                        ||
+                        "Unable to generate party plan."
+                    );
+
+                }
+
+
+                displayResults(data);
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    error
+                );
+
+
+                showError(
+                    error.message
+                    ||
+                    "Something went wrong. Please try again."
+                );
+
+            }
+
+            finally {
+
+                document.getElementById(
+                    "loadingState"
+                ).style.display = "none";
+
+
+                button.disabled = false;
+
+                button.textContent =
+                    "✨ Generate Party Plan";
+
+            }
+
+        }
+
+
+
+        /* ==============================================
+           DISPLAY
+        =============================================== */
+
+        function displayResults(data) {
+
+
+            document.getElementById(
+                "resultState"
+            ).style.display = "block";
+
+
+            const breakdown =
+                document.getElementById(
+                    "breakdown"
+                );
+
+
+            breakdown.innerHTML = "";
+
+
+
+            /*
+              Your existing backend may return
+              venue, food, decoration and
+              miscellaneous values.
+            */
+
+            const categories = [
+
+                {
+                    key: "venue",
+                    name: "Venue"
+                },
+
+                {
+                    key: "food",
+                    name: "Food"
+                },
+
+                {
+                    key: "decoration",
+                    name: "Decoration"
+                },
+
+                {
+                    key: "miscellaneous",
+                    name: "Miscellaneous"
+                }
+
+            ];
+
+
+
+            categories.forEach(
+                item => {
+
+                    let value =
+                        data[item.key];
+
+
+                    if (
+                        value === undefined
+                        ||
+                        value === null
+                    ) {
+
+                        return;
+                    }
+
+
+                    const div =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    div.className =
+                        "breakdown-item";
+
+
+                    div.innerHTML = `
+
+                        <div
+                            class="breakdown-left"
+                        >
+
+                            <div
+                                class="breakdown-icon"
+                            >
+                                ${getIcon(
+                                    item.key
+                                )}
+                            </div>
+
+
+                            <div>
+
+                                <div
+                                    class="breakdown-name"
+                                >
+                                    ${item.name}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="breakdown-price"
+                        >
+                            ${formatMoney(value)}
+                        </div>
+
+                    `;
+
+
+                    breakdown.appendChild(
+                        div
+                    );
+
+                }
+            );
+
+
+
+            /* =========================================
+               ALTERNATIVE RESULT FORMAT
+            ========================================== */
+
+            if (
+                data.breakdown
+                &&
+                typeof data.breakdown === "object"
+            ) {
+
+                breakdown.innerHTML = "";
+
+
+                Object.entries(
+                    data.breakdown
+                ).forEach(
+                    ([key, value]) => {
+
+                        const div =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        div.className =
+                            "breakdown-item";
+
+
+                        div.innerHTML = `
+
+                            <div
+                                class="breakdown-left"
+                            >
+
+                                <div
+                                    class="breakdown-icon"
+                                >
+                                    ${getIcon(key)}
+                                </div>
+
+
+                                <div>
+
+                                    <div
+                                        class="breakdown-name"
+                                    >
+                                        ${formatName(key)}
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                class="breakdown-price"
+                            >
+                                ${formatMoney(value)}
+                            </div>
+
+                        `;
+
+
+                        breakdown.appendChild(
+                            div
+                        );
+
+                    }
+                );
+
+            }
+
+
+
+            const total =
+                data.total
+                ??
+                data.total_cost
+                ??
+                data.budget
+                ??
+                0;
+
+
+            document.getElementById(
+                "totalBudget"
+            ).textContent =
+                formatMoney(
+                    data.budget || 0
+                );
+
+
+            document.getElementById(
+                "plannedAmount"
+            ).textContent =
+                formatMoney(
+                    data.total
+                    ??
+                    data.total_cost
+                    ??
+                    total
+                );
+
+
+
+            document.getElementById(
+                "aiExplanation"
+            ).textContent =
+                data.ai_explanation
+                ||
+                data.message
+                ||
+                "Your party plan has been created based on your selected budget and event details.";
+
+        }
+
+
+
+        /* ==============================================
+           FORMAT NAME
+        =============================================== */
+
+        function formatName(value) {
+
+            return String(value)
+                .replaceAll("_", " ")
+                .replace(
+                    /\b\w/g,
+                    letter =>
+                        letter.toUpperCase()
+                );
+
+        }
+
+
+
+        /* ==============================================
+           ERROR
+        =============================================== */
+
+        function showError(message) {
+
+            const box =
+                document.getElementById(
+                    "errorBox"
+                );
+
+
+            box.textContent =
+                message;
+
+
+            box.style.display =
+                "block";
+
+        }
+
+
+        function hideError() {
+
+            document.getElementById(
+                "errorBox"
+            ).style.display =
+                "none";
+
+        }
+
+
+
+        /* ==============================================
+           EVENT
+        =============================================== */
+
+        document
+            .getElementById(
+                "generateBtn"
+            )
+            .addEventListener(
+                "click",
+                generatePartyPlan
+            );
+
+
+    </script>
+
+</body>
+
+</html>

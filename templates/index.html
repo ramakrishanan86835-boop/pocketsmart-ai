@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>PocketSmart AI</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/css/style.css"
+    >
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ====================================================== */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #222;
+            line-height: 1.5;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+
+        /* =====================================================
+           NAVBAR
+        ====================================================== */
+
+        .navbar {
+            width: 100%;
+            background: #12345b;
+            color: white;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 35px;
+            height: 64px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            color: white;
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            color: white;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .nav-get-started {
+            background: #4d83bd;
+            padding: 9px 18px;
+            border-radius: 20px;
+
+            box-shadow:
+                0 3px 10px rgba(0, 0, 0, 0.18);
+        }
+
+
+        /* =====================================================
+           HERO
+        ====================================================== */
+
+        .hero {
+            background:
+                linear-gradient(
+                    135deg,
+                    #3f76b3,
+                    #183d68
+                );
+
+            color: white;
+
+            text-align: center;
+
+            padding: 75px 20px 70px;
+        }
+
+        .hero-content {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .hero h2 {
+            font-size: 27px;
+            margin-bottom: 18px;
+            font-weight: 600;
+        }
+
+        .hero p {
+            max-width: 720px;
+            margin: 0 auto;
+
+            font-size: 16px;
+            line-height: 1.7;
+
+            color: #eef5ff;
+        }
+
+        .hero-buttons {
+            margin-top: 30px;
+
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+
+            padding: 12px 27px;
+
+            border-radius: 22px;
+
+            font-size: 14px;
+            font-weight: bold;
+
+            transition: 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: #4d83bd;
+            color: white;
+
+            box-shadow:
+                0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #244d78;
+        }
+
+
+        /* =====================================================
+           PLANNERS SECTION
+        ====================================================== */
+
+        .planners-section {
+            background: #f5f7fb;
+
+            padding: 65px 25px 75px;
+        }
+
+        .section-heading {
+            max-width: 750px;
+            margin: 0 auto 40px;
+
+            text-align: center;
+        }
+
+        .section-heading h2 {
+            color: #173c65;
+
+            font-size: 30px;
+
+            margin-bottom: 10px;
+        }
+
+        .section-heading p {
+            color: #777;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+        .planner-container {
+            max-width: 1100px;
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 22px;
+        }
+
+
+        /* =====================================================
+           PLANNER CARD
+        ====================================================== */
+
+        .planner-card {
+            background: white;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 6px 20px rgba(0, 0, 0, 0.09);
+
+            transition: 0.25s;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        .planner-card:hover {
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 10px 28px rgba(0, 0, 0, 0.13);
+        }
+
+        .planner-icon {
+            height: 82px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #477fba,
+                    #173c65
+                );
+
+            color: white;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            font-size: 38px;
+        }
+
+        .planner-content {
+            padding: 25px 22px 23px;
+
+            display: flex;
+            flex-direction: column;
+
+            flex: 1;
+        }
+
+        .planner-content h3 {
+            color: #244f7d;
+
+            font-size: 19px;
+
+            margin-bottom: 12px;
+        }
+
+        .planner-content p {
+            color: #666;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+
+            margin-bottom: 22px;
+
+            flex: 1;
+        }
+
+        .planner-button {
+            display: block;
+
+            text-align: center;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #477fba,
+                    #173c65
+                );
+
+            color: white;
+
+            padding: 11px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            transition: 0.2s;
+        }
+
+        .planner-button:hover {
+            opacity: 0.9;
+        }
+
+
+        /* =====================================================
+           TESTIMONIALS
+        ====================================================== */
+
+        .testimonials-section {
+            background: #eaf0f8;
+
+            padding: 70px 25px;
+        }
+
+        .testimonial-container {
+            max-width: 1100px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+        .testimonial-card {
+            background: white;
+
+            border-radius: 10px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 5px 18px rgba(0, 0, 0, 0.07);
+
+            position: relative;
+        }
+
+        .quote {
+            color: #4c80b7;
+
+            font-size: 42px;
+
+            font-weight: bold;
+
+            line-height: 25px;
+
+            margin-bottom: 15px;
+        }
+
+        .testimonial-card > p {
+            color: #666;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+
+            font-style: italic;
+
+            min-height: 105px;
+        }
+
+        .user-info {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin-top: 20px;
+        }
+
+        .user-avatar {
+            width: 38px;
+            height: 38px;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #4b82bc,
+                    #183d68
+                );
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-weight: bold;
+        }
+
+        .user-info h4 {
+            color: #244d78;
+
+            font-size: 14px;
+
+            margin-bottom: 2px;
+        }
+
+        .user-info span {
+            color: #888;
+
+            font-size: 11px;
+        }
+
+
+        /* =====================================================
+           CALL TO ACTION
+        ====================================================== */
+
+        .cta-section {
+            background:
+                linear-gradient(
+                    135deg,
+                    #3d73ae,
+                    #214c7d
+                );
+
+            color: white;
+
+            text-align: center;
+
+            padding: 70px 20px;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .cta-content h2 {
+            font-size: 31px;
+
+            margin-bottom: 14px;
+        }
+
+        .cta-content p {
+            font-size: 14px;
+
+            color: #e8f0fa;
+
+            line-height: 1.7;
+
+            max-width: 650px;
+
+            margin: auto;
+        }
+
+        .cta-buttons {
+            margin-top: 28px;
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 15px;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ====================================================== */
+
+        .footer {
+            background: #102f51;
+
+            color: white;
+
+            padding: 50px 25px 20px;
+        }
+
+        .footer-container {
+            max-width: 1100px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                2fr
+                1fr
+                1fr
+                1fr
+                1fr;
+
+            gap: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+
+            margin-bottom: 13px;
+        }
+
+        .footer-column h4 {
+            font-size: 14px;
+
+            margin-bottom: 15px;
+        }
+
+        .footer-about p {
+            color: #cbd7e4;
+
+            font-size: 12px;
+
+            line-height: 1.7;
+
+            max-width: 260px;
+        }
+
+        .footer-column a {
+            display: block;
+
+            color: #cbd7e4;
+
+            font-size: 12px;
+
+            margin-bottom: 10px;
+
+            transition: 0.2s;
+        }
+
+        .footer-column a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+
+            gap: 8px;
+
+            margin-top: 18px;
+        }
+
+        .social-links a {
+            width: 28px;
+            height: 28px;
+
+            border-radius: 50%;
+
+            background: #315779;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            margin: 0;
+
+            font-size: 11px;
+        }
+
+        .footer-bottom {
+            max-width: 1100px;
+
+            margin: 35px auto 0;
+
+            padding-top: 18px;
+
+            border-top: 1px solid rgba(255,255,255,0.15);
+
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            color: #aebfd1;
+
+            font-size: 11px;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE DESIGN
+        ====================================================== */
+
+        @media (max-width: 850px) {
+
+            .planner-container {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+
+            .testimonial-container {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+
+            .footer-container {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .nav-container {
+                height: auto;
+
+                padding: 18px 20px;
+
+                flex-direction: column;
+
+                gap: 15px;
+            }
+
+            .nav-links {
+                gap: 15px;
+
+                flex-wrap: wrap;
+
+                justify-content: center;
+            }
+
+            .hero {
+                padding: 55px 20px;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .hero h2 {
+                font-size: 21px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+
+                align-items: center;
+            }
+
+            .btn {
+                width: 180px;
+            }
+
+            .section-heading h2 {
+                font-size: 25px;
+            }
+
+            .cta-content h2 {
+                font-size: 25px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+
+                align-items: center;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+
+                text-align: center;
+            }
+
+            .footer-about p {
+                margin: auto;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <header class="navbar">
+
+        <div class="nav-container">
+
+            <a href="/" class="logo">
+                PocketSmart
+            </a>
+
+
+            <nav class="nav-links">
+
+                <a href="#features">
+                    Features
+                </a>
+
+                <a href="#testimonials">
+                    Testimonials
+                </a>
+
+                <!-- Dynamic Sign In / Sign Out -->
+                <a
+                    href="/login"
+                    id="auth-link"
+                >
+                    Sign In
+                </a>
+
+                <!-- Dynamic Get Started / Dashboard -->
+                <a
+                    href="/register"
+                    class="nav-get-started"
+                    id="get-started-link"
+                >
+                    Get Started
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         HERO SECTION
+    ====================================================== -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <h1>
+                PocketSmart
+            </h1>
+
+            <h2>
+                AI-Powered Budget Planning for Everyday Needs
+            </h2>
+
+            <p>
+                Make smarter financial decisions with personalized
+                budget recommendations for home interiors, parties,
+                and jewelry purchases. Our AI helps you get the most
+                value for your money.
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <!-- Dynamic Get Started / Dashboard -->
+                <a
+                    href="/register"
+                    class="btn btn-primary"
+                    id="hero-get-started"
+                >
+                    Get Started
+                </a>
+
+
+                <a
+                    href="#features"
+                    class="btn btn-secondary"
+                >
+                    Learn More
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         SMART BUDGET PLANNERS
+    ====================================================== -->
+
+    <section
+        class="planners-section"
+        id="features"
+    >
+
+        <div class="section-heading">
+
+            <h2>
+                Our Smart Budget Planners
+            </h2>
+
+            <p>
+                Discover how PocketSmart helps you make better
+                financial decisions across different areas of
+                your life.
+            </p>
+
+        </div>
+
+
+        <div class="planner-container">
+
+
+            <!-- HOME PLANNER -->
+
+            <div class="planner-card">
+
+                <div class="planner-icon">
+                    🏠
+                </div>
+
+
+                <div class="planner-content">
+
+                    <h3>
+                        Home Interior Budget Planner
+                    </h3>
+
+
+                    <p>
+                        Get personalized recommendations for
+                        furniture, lighting, and decor that fit
+                        your preferences and budget constraints.
+                        Our AI helps you create a beautiful space
+                        without overspending.
+                    </p>
+
+
+                    <a
+                        href="/home-planner"
+                        class="planner-button"
+                    >
+                        Get Started
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PARTY PLANNER -->
+
+            <div class="planner-card">
+
+                <div class="planner-icon">
+                    🎉
+                </div>
+
+
+                <div class="planner-content">
+
+                    <h3>
+                        Party Budget Planner
+                    </h3>
+
+
+                    <p>
+                        Plan your perfect event with smart budget
+                        allocations for venue, catering,
+                        decorations, and entertainment. Our AI
+                        suggests the best ways to create memorable
+                        events while staying within your budget.
+                    </p>
+
+
+                    <a
+                        href="/party"
+                        class="planner-button"
+                    >
+                        Get Started
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- JEWELRY PLANNER -->
+
+            <div class="planner-card">
+
+                <div class="planner-icon">
+                    💎
+                </div>
+
+
+                <div class="planner-content">
+
+                    <h3>
+                        Jewelry Budget Planner
+                    </h3>
+
+
+                    <p>
+                        Find the ideal jewelry pieces for any
+                        occasion that match your outfit and stay
+                        within your budget. Our AI recommends
+                        options based on your style preferences,
+                        occasion, and available budget.
+                    </p>
+
+
+                    <a
+                        href="/jewelry"
+                        class="planner-button"
+                    >
+                        Get Started
+                    </a>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         TESTIMONIALS
+    ====================================================== -->
+
+    <section
+        class="testimonials-section"
+        id="testimonials"
+    >
+
+        <div class="section-heading">
+
+            <h2>
+                What Our Users Say
+            </h2>
+
+            <p>
+                Real experiences from people who have transformed
+                their financial planning with PocketSmart.
+            </p>
+
+        </div>
+
+
+        <div class="testimonial-container">
+
+
+            <!-- TESTIMONIAL 1 -->
+
+            <div class="testimonial-card">
+
+                <div class="quote">
+                    “
+                </div>
+
+
+                <p>
+                    PocketSmart helped me furnish my new apartment
+                    without breaking the bank. The recommendations
+                    were spot on and I saved nearly 30% of my
+                    original budget!
+                </p>
+
+
+                <div class="user-info">
+
+                    <div class="user-avatar">
+                        S
+                    </div>
+
+
+                    <div>
+
+                        <h4>
+                            Sarah K.
+                        </h4>
+
+                        <span>
+                            Home Owner
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TESTIMONIAL 2 -->
+
+            <div class="testimonial-card">
+
+                <div class="quote">
+                    “
+                </div>
+
+
+                <p>
+                    Planning my daughter's birthday party was so
+                    much easier with PocketSmart's budget
+                    breakdown. The AI suggestions for affordable
+                    decorations and catering options were
+                    fantastic.
+                </p>
+
+
+                <div class="user-info">
+
+                    <div class="user-avatar">
+                        M
+                    </div>
+
+
+                    <div>
+
+                        <h4>
+                            Michael R.
+                        </h4>
+
+                        <span>
+                            Parent
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TESTIMONIAL 3 -->
+
+            <div class="testimonial-card">
+
+                <div class="quote">
+                    “
+                </div>
+
+
+                <p>
+                    The jewelry recommendations perfectly matched
+                    my outfit for the wedding. Saved me hours
+                    searching and I received so many compliments
+                    on my accessories!
+                </p>
+
+
+                <div class="user-info">
+
+                    <div class="user-avatar">
+                        P
+                    </div>
+
+
+                    <div>
+
+                        <h4>
+                            Priya M.
+                        </h4>
+
+                        <span>
+                            Fashion Enthusiast
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         CALL TO ACTION
+    ====================================================== -->
+
+    <section class="cta-section">
+
+        <div class="cta-content">
+
+            <h2>
+                Ready to Optimize Your Budget?
+            </h2>
+
+
+            <p>
+                Join PocketSmart today and start making smarter
+                financial decisions across all areas of your life.
+            </p>
+
+
+            <div class="cta-buttons">
+
+                <a
+                    href="/login"
+                    class="btn btn-secondary"
+                >
+                    Sign In
+                </a>
+
+
+                <a
+                    href="/register"
+                    class="btn btn-primary"
+                >
+                    Create Account
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="footer">
+
+        <div class="footer-container">
+
+
+            <!-- ABOUT -->
+
+            <div class="footer-column footer-about">
+
+                <h3>
+                    PocketSmart
+                </h3>
+
+
+                <p>
+                    AI-powered budget planning to help you make
+                    smarter financial decisions and get more value
+                    from your money.
+                </p>
+
+
+                <div class="social-links">
+
+                    <a href="#">
+                        f
+                    </a>
+
+                    <a href="#">
+                        X
+                    </a>
+
+                    <a href="#">
+                        ◎
+                    </a>
+
+                    <a href="#">
+                        in
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- COMPANY -->
+
+            <div class="footer-column">
+
+                <h4>
+                    Company
+                </h4>
+
+
+                <a href="/">
+                    About Us
+                </a>
+
+
+                <a href="#features">
+                    Features
+                </a>
+
+
+                <a href="#testimonials">
+                    Testimonials
+                </a>
+
+
+                <a href="#">
+                    Contact Us
+                </a>
+
+            </div>
+
+
+
+            <!-- PRODUCT -->
+
+            <div class="footer-column">
+
+                <h4>
+                    Product
+                </h4>
+
+
+                <a href="/home-planner">
+                    Home Planner
+                </a>
+
+
+                <a href="/party">
+                    Party Planner
+                </a>
+
+
+                <a href="/jewelry">
+                    Jewelry Planner
+                </a>
+
+
+                <a href="/history-page">
+                    History
+                </a>
+
+            </div>
+
+
+
+            <!-- RESOURCES -->
+
+            <div class="footer-column">
+
+                <h4>
+                    Resources
+                </h4>
+
+
+                <a href="#">
+                    Help Center
+                </a>
+
+
+                <a href="#">
+                    Documentation
+                </a>
+
+
+                <a href="#">
+                    Blog
+                </a>
+
+
+                <a href="#">
+                    Support
+                </a>
+
+            </div>
+
+
+
+            <!-- LEGAL -->
+
+            <div class="footer-column">
+
+                <h4>
+                    Legal
+                </h4>
+
+
+                <a href="#">
+                    Privacy Policy
+                </a>
+
+
+                <a href="#">
+                    Terms of Service
+                </a>
+
+
+                <a href="#">
+                    Cookie Policy
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- COPYRIGHT -->
+
+        <div class="footer-bottom">
+
+            <p>
+                © 2026 PocketSmart AI. All rights reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =====================================================
+         LOGIN STATUS SCRIPT
+    ====================================================== -->
+
+    <script>
+
+        async function updateNavigation() {
+
+            try {
+
+                const response =
+                    await fetch("/session-info");
+
+                const data =
+                    await response.json();
+
+
+                const authLink =
+                    document.getElementById(
+                        "auth-link"
+                    );
+
+                const getStartedLink =
+                    document.getElementById(
+                        "get-started-link"
+                    );
+
+                const heroGetStarted =
+                    document.getElementById(
+                        "hero-get-started"
+                    );
+
+
+                if (data.logged_in) {
+
+                    /*
+                     * User is logged in
+                     */
+
+                    // Sign In → Sign Out
+                    authLink.textContent =
+                        "Sign Out";
+
+                    authLink.href =
+                        "/logout";
+
+
+                    // Get Started → Dashboard
+                    getStartedLink.textContent =
+                        "Dashboard";
+
+                    getStartedLink.href =
+                        "/dashboard";
+
+
+                    // Hero Get Started → Dashboard
+                    heroGetStarted.textContent =
+                        "Go to Dashboard";
+
+                    heroGetStarted.href =
+                        "/dashboard";
+
+                } else {
+
+                    /*
+                     * User is logged out
+                     */
+
+                    // Sign Out → Sign In
+                    authLink.textContent =
+                        "Sign In";
+
+                    authLink.href =
+                        "/login";
+
+
+                    // Dashboard → Get Started
+                    getStartedLink.textContent =
+                        "Get Started";
+
+                    getStartedLink.href =
+                        "/register";
+
+
+                    // Dashboard → Get Started
+                    heroGetStarted.textContent =
+                        "Get Started";
+
+                    heroGetStarted.href =
+                        "/register";
+
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Error checking login status:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        /*
+         * Check login status
+         * immediately when the page loads.
+         */
+        updateNavigation();
+
+    </script>
+
+
+</body>
+
+</html>

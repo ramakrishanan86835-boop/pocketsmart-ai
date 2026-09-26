@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>PocketSmart AI - History</title>
+
+    <link rel="stylesheet"
+          href="/static/css/style.css">
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+        }
+
+        .history-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .history-header h1 {
+            margin: 0;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            padding: 10px 18px;
+            background: #222;
+            color: white;
+            border-radius: 8px;
+        }
+
+        .history-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .history-card {
+            background: white;
+            border-radius: 15px;
+            padding: 22px;
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .history-icon {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        .history-card h2 {
+            margin: 5px 0;
+        }
+
+        .history-card p {
+            margin: 8px 0;
+            color: #555;
+        }
+
+        .planner-type {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: #eef2ff;
+            color: #3730a3;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .details-btn {
+            margin-top: 15px;
+            width: 100%;
+            padding: 11px;
+            border: none;
+            border-radius: 8px;
+            background: #111827;
+            color: white;
+            cursor: pointer;
+        }
+
+        .details-btn:hover {
+            opacity: 0.9;
+        }
+
+        .empty-history {
+            text-align: center;
+            background: white;
+            padding: 50px 20px;
+            border-radius: 15px;
+        }
+
+        .empty-history h2 {
+            margin-bottom: 10px;
+        }
+
+        .empty-history p {
+            color: #666;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+
+        /* Details modal */
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 700px;
+            max-height: 80vh;
+            overflow-y: auto;
+            margin: 7% auto;
+            padding: 25px;
+            border-radius: 15px;
+        }
+
+        .close-btn {
+            float: right;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        .product {
+            padding: 12px;
+            margin: 8px 0;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
+
+        .ai-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f3f4f6;
+            border-radius: 10px;
+            white-space: pre-line;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="history-container">
+
+    <div class="history-header">
+
+        <div>
+
+            <h1>📜 My History</h1>
+
+            <p>
+                View your previous PocketSmart AI recommendations.
+            </p>
+
+        </div>
+
+        <a
+            href="/dashboard"
+            class="back-btn">
+            ← Dashboard
+        </a>
+
+    </div>
+
+
+    <!-- HISTORY CONTENT -->
+
+    <div id="historyContainer">
+
+        <div class="loading">
+            Loading your history...
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- DETAILS MODAL -->
+
+<div
+    id="detailsModal"
+    class="modal">
+
+    <div class="modal-content">
+
+        <span
+            class="close-btn"
+            onclick="closeModal()">
+            ×
+        </span>
+
+        <h2 id="modalTitle">
+            Recommendation Details
+        </h2>
+
+        <div id="modalContent"></div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+async function loadHistory() {
+
+    const container =
+        document.getElementById(
+            "historyContainer"
+        );
+
+    try {
+
+        const response =
+            await fetch("/history");
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+
+            container.innerHTML = `
+                <div class="empty-history">
+                    <h2>🔒 Login Required</h2>
+                    <p>
+                        Please login to view your history.
+                    </p>
+                    <a href="/login">
+                        Login
+                    </a>
+                </div>
+            `;
+
+            return;
+        }
+
+
+        if (
+            !data.history ||
+            data.history.length === 0
+        ) {
+
+            container.innerHTML = `
+                <div class="empty-history">
+
+                    <h2>
+                        📭 No History Yet
+                    </h2>
+
+                    <p>
+                        Generate a recommendation
+                        to see it here.
+                    </p>
+
+                    <a href="/">
+                        Try Home Planner
+                    </a>
+
+                </div>
+            `;
+
+            return;
+        }
+
+
+        container.innerHTML = "";
+
+
+        data.history.forEach(
+            (record, index) => {
+
+                const input =
+                    JSON.parse(
+                        record.input_data
+                    );
+
+                const result =
+                    JSON.parse(
+                        record.result_data
+                    );
+
+
+                let icon = "📋";
+
+                if (
+                    record.planner_type === "home"
+                ) {
+                    icon = "🏠";
+                }
+
+                else if (
+                    record.planner_type === "party"
+                ) {
+                    icon = "🎉";
+                }
+
+                else if (
+                    record.planner_type === "jewelry"
+                ) {
+                    icon = "💎";
+                }
+
+
+                const card =
+                    document.createElement(
+                        "div"
+                    );
+
+                card.className =
+                    "history-card";
+
+
+                card.innerHTML = `
+
+                    <div class="history-icon">
+                        ${icon}
+                    </div>
+
+                    <span class="planner-type">
+                        ${record.planner_type.toUpperCase()}
+                    </span>
+
+                    <h2>
+                        ${getTitle(
+                            record.planner_type,
+                            input
+                        )}
+                    </h2>
+
+                    <p>
+                        💰 Budget:
+                        ₹${Number(
+                            input.budget || 0
+                        ).toLocaleString("en-IN")}
+                    </p>
+
+                    <p>
+                        📅 ${formatDate(
+                            record.created_at
+                        )}
+                    </p>
+
+                    <button
+                        class="details-btn"
+                        onclick="showDetails(${index})">
+                        View Details
+                    </button>
+
+                `;
+
+
+                container.appendChild(card);
+
+            }
+        );
+
+
+        window.historyRecords =
+            data.history;
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        container.innerHTML = `
+            <div class="empty-history">
+
+                <h2>
+                    ⚠️ Something went wrong
+                </h2>
+
+                <p>
+                    Could not load history.
+                </p>
+
+            </div>
+        `;
+
+    }
+
+}
+
+
+function getTitle(
+    plannerType,
+    input
+) {
+
+    if (plannerType === "home") {
+
+        return (
+            `${capitalize(input.room || "Room")} - `
+            + `${capitalize(input.style || "Style")}`
+        );
+
+    }
+
+
+    if (plannerType === "party") {
+
+        return (
+            `${capitalize(
+                input.event_type || "Party"
+            )}`
+        );
+
+    }
+
+
+    if (plannerType === "jewelry") {
+
+        return (
+            `${capitalize(
+                input.occasion || "Jewelry"
+            )}`
+        );
+
+    }
+
+
+    return "Recommendation";
+
+}
+
+
+function capitalize(value) {
+
+    if (!value) {
+        return "";
+    }
+
+    return value.charAt(0).toUpperCase()
+        + value.slice(1);
+
+}
+
+
+function formatDate(dateString) {
+
+    const date =
+        new Date(
+            dateString.replace(" ", "T")
+        );
+
+    return date.toLocaleString(
+        "en-IN"
+    );
+
+}
+
+
+function showDetails(index) {
+
+    const record =
+        window.historyRecords[index];
+
+    const input =
+        JSON.parse(
+            record.input_data
+        );
+
+    const result =
+        JSON.parse(
+            record.result_data
+        );
+
+
+    document.getElementById(
+        "modalTitle"
+    ).innerText =
+        "Recommendation Details";
+
+
+    let html = "";
+
+
+    html += `
+        <p>
+            <strong>Planner:</strong>
+            ${record.planner_type.toUpperCase()}
+        </p>
+    `;
+
+
+    html += `
+        <p>
+            <strong>Budget:</strong>
+            ₹${Number(
+                input.budget || 0
+            ).toLocaleString("en-IN")}
+        </p>
+    `;
+
+
+    if (
+        result.recommended_products
+    ) {
+
+        html += `
+            <h3>
+                Recommended Products
+            </h3>
+        `;
+
+
+        result.recommended_products
+            .forEach(product => {
+
+                html += `
+
+                    <div class="product">
+
+                        <strong>
+                            ${product.name}
+                        </strong>
+
+                        <br>
+
+                        Category:
+                        ${product.category}
+
+                        <br>
+
+                        Price:
+                        ₹${Number(
+                            product.price
+                        ).toLocaleString("en-IN")}
+
+                    </div>
+
+                `;
+
+            });
+
+
+        html += `
+            <p>
+                <strong>
+                    Total Cost:
+                </strong>
+                ₹${Number(
+                    result.total_cost || 0
+                ).toLocaleString("en-IN")}
+            </p>
+        `;
+
+
+        html += `
+            <p>
+                <strong>
+                    Remaining Budget:
+                </strong>
+                ₹${Number(
+                    result.remaining_budget || 0
+                ).toLocaleString("en-IN")}
+            </p>
+        `;
+
+    }
+
+
+    if (
+        result.ai_explanation
+    ) {
+
+        html += `
+
+            <div class="ai-box">
+
+                <h3>
+                    🤖 PocketSmart AI
+                </h3>
+
+                ${result.ai_explanation}
+
+            </div>
+
+        `;
+
+    }
+
+
+    document.getElementById(
+        "modalContent"
+    ).innerHTML = html;
+
+
+    document.getElementById(
+        "detailsModal"
+    ).style.display = "block";
+
+}
+
+
+function closeModal() {
+
+    document.getElementById(
+        "detailsModal"
+    ).style.display = "none";
+
+}
+
+
+window.onclick = function(event) {
+
+    const modal =
+        document.getElementById(
+            "detailsModal"
+        );
+
+    if (event.target === modal) {
+
+        modal.style.display = "none";
+
+    }
+
+}
+
+
+loadHistory();
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Dashboard - PocketSmart AI</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f5f7fb;
+
+            color: #1f2937;
+
+            min-height: 100vh;
+        }
+
+
+        a {
+            text-decoration: none;
+        }
+
+
+        /* =====================================
+           NAVBAR
+        ====================================== */
+
+        .navbar {
+
+            height: 78px;
+
+            background: white;
+
+            border-bottom:
+                1px solid #e5e7eb;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 35px;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+        }
+
+
+        .logo {
+
+            font-size: 25px;
+
+            font-weight: 700;
+
+            color: #111827;
+        }
+
+
+        .logo span {
+
+            color: #6657ff;
+        }
+
+
+        .nav-right {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+        }
+
+
+        .avatar {
+
+            width: 42px;
+
+            height: 42px;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6657ff,
+                    #8b7cff
+                );
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 16px;
+
+            font-weight: 700;
+        }
+
+
+        .user-name {
+
+            font-size: 14px;
+
+            color: #374151;
+
+            font-weight: 600;
+        }
+
+
+        .logout-btn {
+
+            padding:
+                9px 16px;
+
+            border-radius: 8px;
+
+            background: #ef4444;
+
+            color: white;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+
+        .logout-btn:hover {
+
+            background: #dc2626;
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        /* =====================================
+           MAIN
+        ====================================== */
+
+        .container {
+
+            max-width: 1150px;
+
+            margin: auto;
+
+            padding:
+                45px 25px 70px;
+        }
+
+
+        /* =====================================
+           WELCOME
+        ====================================== */
+
+        .welcome {
+
+            margin-bottom: 35px;
+        }
+
+
+        .welcome h1 {
+
+            font-size: 32px;
+
+            color: #111827;
+
+            margin-bottom: 8px;
+        }
+
+
+        .welcome h1 span {
+
+            color: #6657ff;
+        }
+
+
+        .welcome p {
+
+            color: #6b7280;
+
+            font-size: 15px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =====================================
+           QUICK ACTIONS
+        ====================================== */
+
+        .quick-actions {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 40px;
+        }
+
+
+        .quick-card {
+
+            background: white;
+
+            border:
+                1px solid #edf0f5;
+
+            border-radius: 15px;
+
+            padding: 22px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 17px;
+
+            transition: 0.25s;
+
+            box-shadow:
+                0 5px 20px
+                rgba(
+                    15,
+                    23,
+                    42,
+                    0.05
+                );
+        }
+
+
+        .quick-card:hover {
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 10px 25px
+                rgba(
+                    15,
+                    23,
+                    42,
+                    0.09
+                );
+        }
+
+
+        .quick-icon {
+
+            width: 52px;
+
+            height: 52px;
+
+            border-radius: 13px;
+
+            background: #f1efff;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 25px;
+
+            flex-shrink: 0;
+        }
+
+
+        .quick-content {
+
+            flex: 1;
+        }
+
+
+        .quick-content h3 {
+
+            font-size: 16px;
+
+            color: #111827;
+
+            margin-bottom: 5px;
+        }
+
+
+        .quick-content p {
+
+            font-size: 12px;
+
+            color: #6b7280;
+
+            line-height: 1.5;
+        }
+
+
+        .arrow {
+
+            color: #6657ff;
+
+            font-size: 20px;
+
+            font-weight: 700;
+        }
+
+
+        /* =====================================
+           SECTION TITLE
+        ====================================== */
+
+        .section-header {
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items: center;
+
+            margin-bottom: 20px;
+        }
+
+
+        .section-header h2 {
+
+            font-size: 21px;
+
+            color: #111827;
+        }
+
+
+        .history-link {
+
+            color: #6657ff;
+
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+
+        .history-link:hover {
+
+            color: #4f46e5;
+        }
+
+
+        /* =====================================
+           PLANNER GRID
+        ====================================== */
+
+        .planner-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 22px;
+        }
+
+
+        .planner-card {
+
+            background: white;
+
+            border:
+                1px solid #edf0f5;
+
+            border-radius: 18px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 7px 25px
+                rgba(
+                    15,
+                    23,
+                    42,
+                    0.06
+                );
+
+            transition: 0.25s;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+
+        .planner-card:hover {
+
+            transform:
+                translateY(-5px);
+
+            box-shadow:
+                0 13px 30px
+                rgba(
+                    15,
+                    23,
+                    42,
+                    0.10
+                );
+        }
+
+
+        .planner-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 4px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #6657ff,
+                    #8b7cff
+                );
+        }
+
+
+        .planner-icon {
+
+            width: 58px;
+
+            height: 58px;
+
+            border-radius: 15px;
+
+            background: #f1efff;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 28px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .planner-card h3 {
+
+            font-size: 19px;
+
+            color: #111827;
+
+            margin-bottom: 8px;
+        }
+
+
+        .planner-card p {
+
+            font-size: 13px;
+
+            color: #6b7280;
+
+            line-height: 1.6;
+
+            min-height: 62px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .planner-btn {
+
+            display: block;
+
+            text-align: center;
+
+            width: 100%;
+
+            padding:
+                11px 15px;
+
+            border-radius: 9px;
+
+            background: #6657ff;
+
+            color: white;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            transition: 0.2s;
+        }
+
+
+        .planner-btn:hover {
+
+            background: #5648e8;
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        /* =====================================
+           INFO BANNER
+        ====================================== */
+
+        .info-banner {
+
+            margin-top: 35px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f1efff,
+                    #faf9ff
+                );
+
+            border:
+                1px solid #e6e2ff;
+
+            border-radius: 16px;
+
+            padding: 25px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 18px;
+        }
+
+
+        .info-icon {
+
+            width: 50px;
+
+            height: 50px;
+
+            border-radius: 13px;
+
+            background: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 25px;
+
+            flex-shrink: 0;
+        }
+
+
+        .info-banner h3 {
+
+            font-size: 16px;
+
+            color: #111827;
+
+            margin-bottom: 5px;
+        }
+
+
+        .info-banner p {
+
+            font-size: 12px;
+
+            color: #6b7280;
+
+            line-height: 1.6;
+        }
+
+
+        /* =====================================
+           FOOTER
+        ====================================== */
+
+        .footer {
+
+            text-align: center;
+
+            margin-top: 55px;
+
+            padding-top: 25px;
+
+            border-top:
+                1px solid #e5e7eb;
+
+            color: #9ca3af;
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================
+           LOADING
+        ====================================== */
+
+        .loading {
+
+            text-align: center;
+
+            padding: 80px 20px;
+
+            color: #6b7280;
+        }
+
+
+        .spinner {
+
+            width: 38px;
+
+            height: 38px;
+
+            border:
+                4px solid #e5e7eb;
+
+            border-top-color:
+                #6657ff;
+
+            border-radius: 50%;
+
+            animation:
+                spin 0.8s linear infinite;
+
+            margin:
+                0 auto 15px;
+        }
+
+
+        @keyframes spin {
+
+            to {
+                transform: rotate(360deg);
+            }
+
+        }
+
+
+        /* =====================================
+           RESPONSIVE
+        ====================================== */
+
+        @media (max-width: 900px) {
+
+            .planner-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .navbar {
+
+                padding: 0 17px;
+            }
+
+
+            .user-name {
+
+                display: none;
+            }
+
+
+            .container {
+
+                padding:
+                    32px 16px 50px;
+            }
+
+
+            .welcome h1 {
+
+                font-size: 27px;
+            }
+
+
+            .quick-actions {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .planner-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .info-banner {
+
+                align-items: flex-start;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         NAVBAR
+    =================================================== -->
+
+    <header class="navbar">
+
+
+        <a
+            href="/"
+            class="logo"
+        >
+            Pocket<span>Smart AI</span>
+        </a>
+
+
+        <div class="nav-right">
+
+
+            <div
+                class="avatar"
+                id="avatar"
+            >
+                S
+            </div>
+
+
+            <span
+                class="user-name"
+                id="userName"
+            >
+                User
+            </span>
+
+
+            <a
+                href="/logout"
+                class="logout-btn"
+            >
+                Logout
+            </a>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ==================================================
+         MAIN
+    =================================================== -->
+
+    <main class="container">
+
+
+        <!-- WELCOME -->
+
+        <section class="welcome">
+
+            <h1>
+                Welcome back,
+                <span id="welcomeName">
+                    User
+                </span>
+                👋
+            </h1>
+
+
+            <p>
+                Plan smarter, stay within your budget,
+                and let PocketSmart AI help you make
+                better decisions.
+            </p>
+
+        </section>
+
+
+
+        <!-- ==================================================
+             QUICK ACTIONS
+        =================================================== -->
+
+        <section class="quick-actions">
+
+
+            <!-- HISTORY -->
+
+            <a
+                href="/history-page"
+                class="quick-card"
+            >
+
+                <div class="quick-icon">
+                    📜
+                </div>
+
+
+                <div class="quick-content">
+
+                    <h3>
+                        Recommendation History
+                    </h3>
+
+
+                    <p>
+                        View your previous plans
+                        and recommendations.
+                    </p>
+
+                </div>
+
+
+                <div class="arrow">
+                    →
+                </div>
+
+            </a>
+
+
+
+            <!-- HOME -->
+
+            <a
+                href="/home-planner"
+                class="quick-card"
+            >
+
+                <div class="quick-icon">
+                    🏠
+                </div>
+
+
+                <div class="quick-content">
+
+                    <h3>
+                        Home Planner
+                    </h3>
+
+
+                    <p>
+                        Plan your room within
+                        your available budget.
+                    </p>
+
+                </div>
+
+
+                <div class="arrow">
+                    →
+                </div>
+
+            </a>
+
+        </section>
+
+
+
+        <!-- ==================================================
+             PLANNERS
+        =================================================== -->
+
+        <section>
+
+
+            <div class="section-header">
+
+                <h2>
+                    Smart Planners
+                </h2>
+
+
+                <a
+                    href="/history-page"
+                    class="history-link"
+                >
+                    View History →
+                </a>
+
+            </div>
+
+
+
+            <div class="planner-grid">
+
+
+                <!-- HOME -->
+
+                <div class="planner-card">
+
+                    <div class="planner-icon">
+                        🏠
+                    </div>
+
+
+                    <h3>
+                        Home Planner
+                    </h3>
+
+
+                    <p>
+                        Create a smart room plan
+                        based on your budget,
+                        room type and preferred style.
+                    </p>
+
+
+                    <a
+                        href="/home-planner"
+                        class="planner-btn"
+                    >
+                        Open Home Planner
+                    </a>
+
+                </div>
+
+
+
+                <!-- PARTY -->
+
+                <div class="planner-card">
+
+                    <div class="planner-icon">
+                        🎉
+                    </div>
+
+
+                    <h3>
+                        Party Planner
+                    </h3>
+
+
+                    <p>
+                        Organize your event with
+                        a practical budget for food,
+                        venue and decorations.
+                    </p>
+
+
+                    <a
+                        href="/party"
+                        class="planner-btn"
+                    >
+                        Open Party Planner
+                    </a>
+
+                </div>
+
+
+
+                <!-- JEWELRY -->
+
+                <div class="planner-card">
+
+                    <div class="planner-icon">
+                        💎
+                    </div>
+
+
+                    <h3>
+                        Jewelry Planner
+                    </h3>
+
+
+                    <p>
+                        Find jewelry ideas based on
+                        your occasion, style, budget
+                        and outfit.
+                    </p>
+
+
+                    <a
+                        href="/jewelry"
+                        class="planner-btn"
+                    >
+                        Open Jewelry Planner
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==================================================
+             INFO
+        =================================================== -->
+
+        <section class="info-banner">
+
+
+            <div class="info-icon">
+                🤖
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Your AI Budget Assistant
+                </h3>
+
+
+                <p>
+                    PocketSmart AI combines your
+                    preferences, budget and intelligent
+                    recommendations to help you plan
+                    smarter without unnecessary spending.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- FOOTER -->
+
+        <footer class="footer">
+
+            © 2026 PocketSmart AI.
+            Smart planning made simple.
+
+        </footer>
+
+    </main>
+
+
+
+    <!-- ==================================================
+         JAVASCRIPT
+    =================================================== -->
+
+    <script>
+
+
+        async function loadDashboard() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/session-info"
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                /*
+                 * If user is not logged in,
+                 * send them to login.
+                 */
+
+                if (!data.logged_in) {
+
+                    window.location.href =
+                        "/login";
+
+                    return;
+                }
+
+
+                /*
+                 * Display logged-in user's name.
+                 */
+
+                if (data.user) {
+
+                    const name =
+                        data.user.name
+                        || "User";
+
+
+                    document.getElementById(
+                        "userName"
+                    ).textContent =
+                        name;
+
+
+                    document.getElementById(
+                        "welcomeName"
+                    ).textContent =
+                        name;
+
+
+                    document.getElementById(
+                        "avatar"
+                    ).textContent =
+                        name
+                            .charAt(0)
+                            .toUpperCase();
+
+                }
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Dashboard session error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        loadDashboard();
+
+    </script>
+
+</body>
+
+</html>

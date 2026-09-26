@@ -1,0 +1,2626 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Home Planner - PocketSmart AI</title>
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ====================================================== */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f5f7fb;
+
+            color: #1f2937;
+
+            min-height: 100vh;
+        }
+
+        button,
+        input,
+        select {
+            font-family: inherit;
+        }
+
+
+        /* =====================================================
+           NAVBAR
+        ====================================================== */
+
+        .navbar {
+            height: 78px;
+
+            background: white;
+
+            border-bottom: 1px solid #e5e7eb;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 28px;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 25px;
+
+            font-weight: 700;
+
+            color: #111827;
+
+            text-decoration: none;
+
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: #6657ff;
+        }
+
+        .navbar-right {
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+        }
+
+        .avatar {
+            width: 44px;
+
+            height: 44px;
+
+            border-radius: 50%;
+
+            background: #6657ff;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: 700;
+
+            font-size: 16px;
+        }
+
+        .username {
+            font-size: 15px;
+
+            color: #111827;
+
+            font-weight: 500;
+        }
+
+        .logout-btn {
+            border: none;
+
+            background: #ef4444;
+
+            color: white;
+
+            padding: 10px 18px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            text-decoration: none;
+
+            transition: 0.2s;
+        }
+
+        .logout-btn:hover {
+            background: #dc2626;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =====================================================
+           MAIN
+        ====================================================== */
+
+        .page-container {
+            max-width: 1050px;
+
+            margin: 0 auto;
+
+            padding: 40px 24px 70px;
+        }
+
+
+        /* =====================================================
+           BACK BUTTON
+        ====================================================== */
+
+        .back-link {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            color: #6657ff;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            margin-bottom: 25px;
+
+            transition: 0.2s;
+        }
+
+        .back-link:hover {
+            color: #4f46e5;
+
+            transform: translateX(-2px);
+        }
+
+
+        /* =====================================================
+           PAGE HEADER
+        ====================================================== */
+
+        .page-header {
+            text-align: center;
+
+            margin-bottom: 35px;
+        }
+
+        .page-icon {
+            width: 74px;
+
+            height: 74px;
+
+            margin: 0 auto 15px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ddd8ff,
+                    #eeeaff
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 38px;
+
+            box-shadow:
+                0 8px 25px rgba(
+                    102,
+                    87,
+                    255,
+                    0.12
+                );
+        }
+
+        .page-header h1 {
+            font-size: 34px;
+
+            color: #111827;
+
+            margin-bottom: 8px;
+        }
+
+        .page-header p {
+            color: #6b7280;
+
+            font-size: 15px;
+
+            max-width: 650px;
+
+            margin: auto;
+
+            line-height: 1.6;
+        }
+
+
+        /* =====================================================
+           MAIN GRID
+        ====================================================== */
+
+        .planner-layout {
+            display: grid;
+
+            grid-template-columns:
+                1fr
+                1fr;
+
+            gap: 25px;
+
+            align-items: start;
+        }
+
+
+        /* =====================================================
+           FORM CARD
+        ====================================================== */
+
+        .planner-card {
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 30px;
+
+            box-shadow:
+                0 8px 30px rgba(
+                    15,
+                    23,
+                    42,
+                    0.07
+                );
+
+            border: 1px solid #edf0f5;
+        }
+
+        .card-title {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 25px;
+        }
+
+        .card-title-icon {
+            width: 38px;
+
+            height: 38px;
+
+            border-radius: 10px;
+
+            background: #eeeaff;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 20px;
+        }
+
+        .card-title h2 {
+            font-size: 20px;
+
+            color: #111827;
+        }
+
+
+        /* =====================================================
+           FORM GROUP
+        ====================================================== */
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-group label {
+            display: block;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            color: #374151;
+
+            margin-bottom: 8px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .currency {
+            position: absolute;
+
+            left: 14px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            color: #6b7280;
+
+            font-weight: 600;
+
+            pointer-events: none;
+        }
+
+        input[type="number"],
+        select {
+            width: 100%;
+
+            height: 48px;
+
+            border: 1px solid #d9dde6;
+
+            border-radius: 10px;
+
+            background: #fff;
+
+            color: #111827;
+
+            font-size: 14px;
+
+            padding: 0 14px;
+
+            outline: none;
+
+            transition: 0.2s;
+        }
+
+        input[type="number"] {
+            padding-left: 34px;
+        }
+
+        input[type="number"]:focus,
+        select:focus {
+            border-color: #6657ff;
+
+            box-shadow:
+                0 0 0 3px rgba(
+                    102,
+                    87,
+                    255,
+                    0.10
+                );
+        }
+
+
+        /* =====================================================
+           ITEMS
+        ====================================================== */
+
+        .items-label {
+            margin-bottom: 12px;
+        }
+
+        .items-grid {
+            display: grid;
+
+            grid-template-columns:
+                1fr
+                1fr;
+
+            gap: 10px;
+        }
+
+        .item-option {
+            position: relative;
+        }
+
+        .item-option input {
+            position: absolute;
+
+            opacity: 0;
+
+            pointer-events: none;
+        }
+
+        .item-option label {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 12px;
+
+            border: 1px solid #e1e5ec;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            color: #4b5563;
+
+            font-size: 13px;
+
+            font-weight: 500;
+
+            transition: 0.2s;
+
+            margin: 0;
+        }
+
+        .item-option label:hover {
+            border-color: #aaa2ff;
+
+            background: #faf9ff;
+        }
+
+        .check-box {
+            width: 20px;
+
+            height: 20px;
+
+            border-radius: 6px;
+
+            border: 1px solid #cdd2dc;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            color: transparent;
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+        .item-option input:checked + label {
+            border-color: #6657ff;
+
+            background: #f4f2ff;
+
+            color: #4f46e5;
+        }
+
+        .item-option input:checked + label .check-box {
+            background: #6657ff;
+
+            border-color: #6657ff;
+
+            color: white;
+        }
+
+
+        /* =====================================================
+           GENERATE BUTTON
+        ====================================================== */
+
+        .generate-btn {
+            width: 100%;
+
+            height: 50px;
+
+            margin-top: 5px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6657ff,
+                    #7567ff
+                );
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
+            box-shadow:
+                0 6px 18px rgba(
+                    102,
+                    87,
+                    255,
+                    0.22
+                );
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 9px 22px rgba(
+                    102,
+                    87,
+                    255,
+                    0.28
+                );
+        }
+
+        .generate-btn:disabled {
+            opacity: 0.65;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+
+        /* =====================================================
+           TIP
+        ====================================================== */
+
+        .tip {
+            margin-top: 18px;
+
+            padding: 13px 15px;
+
+            background: #f8f7ff;
+
+            border: 1px solid #ebe8ff;
+
+            border-radius: 10px;
+
+            color: #6b7280;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =====================================================
+           RESULT CARD
+        ====================================================== */
+
+        .result-card {
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 30px;
+
+            box-shadow:
+                0 8px 30px rgba(
+                    15,
+                    23,
+                    42,
+                    0.07
+                );
+
+            border: 1px solid #edf0f5;
+
+            min-height: 400px;
+        }
+
+        .result-empty {
+            min-height: 340px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            color: #9ca3af;
+
+            padding: 30px;
+        }
+
+        .result-empty-icon {
+            font-size: 50px;
+
+            margin-bottom: 15px;
+        }
+
+        .result-empty h3 {
+            color: #374151;
+
+            font-size: 18px;
+
+            margin-bottom: 8px;
+        }
+
+        .result-empty p {
+            font-size: 13px;
+
+            max-width: 300px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =====================================================
+           RESULT HEADER
+        ====================================================== */
+
+        .result-header {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 22px;
+
+            gap: 10px;
+        }
+
+        .result-header h2 {
+            font-size: 20px;
+
+            color: #111827;
+        }
+
+        .success-badge {
+            background: #dcfce7;
+
+            color: #15803d;
+
+            padding: 6px 10px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+        }
+
+
+        /* =====================================================
+           PRODUCTS LIST
+        ====================================================== */
+
+        .products-list {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 12px;
+
+            margin-bottom: 22px;
+        }
+
+
+        /* =====================================================
+           PRODUCT CARD - IMPROVED
+        ====================================================== */
+
+        .product-card {
+            border: 1px solid #e8eaf0;
+
+            border-radius: 14px;
+
+            padding: 16px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 18px;
+
+            transition: 0.2s;
+
+            background: #ffffff;
+        }
+
+        .product-card:hover {
+            border-color: #c7c2ff;
+
+            background: #fcfbff;
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 6px 18px rgba(
+                    15,
+                    23,
+                    42,
+                    0.06
+                );
+        }
+
+
+        /* =====================================================
+           PRODUCT INFO
+        ====================================================== */
+
+        .product-info {
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 12px;
+
+            min-width: 0;
+
+            flex: 1;
+        }
+
+        .product-icon {
+            width: 44px;
+
+            height: 44px;
+
+            border-radius: 11px;
+
+            background: #f0eeff;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 21px;
+
+            flex-shrink: 0;
+        }
+
+        .product-name {
+            font-size: 14px;
+
+            font-weight: 700;
+
+            color: #1f2937;
+
+            margin-bottom: 4px;
+
+            line-height: 1.4;
+        }
+
+        .product-category {
+            font-size: 11px;
+
+            color: #9ca3af;
+
+            text-transform: capitalize;
+        }
+
+
+        /* =====================================================
+           PRODUCT PRICE
+        ====================================================== */
+
+        .product-price {
+            color: #4f46e5;
+
+            font-size: 16px;
+
+            font-weight: 800;
+
+            white-space: nowrap;
+
+            padding-left: 12px;
+        }
+
+
+        /* =====================================================
+           ECOMMERCE LINKS
+        ====================================================== */
+
+        .product-links {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 7px;
+
+            margin-top: 10px;
+        }
+
+        .shop-link {
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            min-width: 76px;
+
+            padding: 7px 11px;
+
+            border-radius: 8px;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            text-decoration: none;
+
+            border: 1px solid #e5e7eb;
+
+            background: white;
+
+            color: #374151;
+
+            transition: all 0.2s ease;
+        }
+
+        .shop-link:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 4px 10px rgba(
+                    15,
+                    23,
+                    42,
+                    0.12
+                );
+        }
+
+
+        /* =====================================================
+           AMAZON
+        ====================================================== */
+
+        .amazon-link {
+            border-color: #f59e0b;
+
+            color: #b45309;
+
+            background: #fffbeb;
+        }
+
+        .amazon-link:hover {
+            background: #fef3c7;
+
+            border-color: #d97706;
+
+            color: #92400e;
+        }
+
+
+        /* =====================================================
+           FLIPKART
+        ====================================================== */
+
+        .flipkart-link {
+            border-color: #2563eb;
+
+            color: #1d4ed8;
+
+            background: #eff6ff;
+        }
+
+        .flipkart-link:hover {
+            background: #dbeafe;
+
+            border-color: #1d4ed8;
+
+            color: #1e40af;
+        }
+
+
+        /* =====================================================
+           IKEA
+        ====================================================== */
+
+        .ikea-link {
+            border-color: #1d4ed8;
+
+            color: #1e40af;
+
+            background: #eff6ff;
+        }
+
+        .ikea-link:hover {
+            background: #dbeafe;
+
+            border-color: #1e3a8a;
+
+            color: #1e3a8a;
+        }
+
+
+        /* =====================================================
+           SUMMARY
+        ====================================================== */
+
+        .summary {
+            display: grid;
+
+            grid-template-columns:
+                1fr
+                1fr;
+
+            gap: 10px;
+
+            margin-bottom: 20px;
+        }
+
+        .summary-box {
+            background: #f8f9fc;
+
+            border-radius: 11px;
+
+            padding: 14px;
+        }
+
+        .summary-box span {
+            display: block;
+
+            color: #6b7280;
+
+            font-size: 11px;
+
+            margin-bottom: 5px;
+        }
+
+        .summary-box strong {
+            color: #111827;
+
+            font-size: 18px;
+        }
+
+        .summary-box.remaining {
+            background: #effdf4;
+        }
+
+        .summary-box.remaining strong {
+            color: #15803d;
+        }
+
+
+        /* =====================================================
+           AI EXPLANATION
+        ====================================================== */
+
+        .ai-box {
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f5f3ff,
+                    #faf9ff
+                );
+
+            border: 1px solid #e8e4ff;
+
+            padding: 17px;
+        }
+
+        .ai-title {
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            color: #4f46e5;
+
+            font-weight: 700;
+
+            font-size: 13px;
+
+            margin-bottom: 9px;
+        }
+
+        .ai-text {
+            color: #5f6470;
+
+            font-size: 12px;
+
+            line-height: 1.7;
+
+            white-space: pre-line;
+        }
+
+
+        /* =====================================================
+           UNAVAILABLE ITEMS
+        ====================================================== */
+
+        .unavailable-box {
+            margin-top: 15px;
+
+            padding: 12px;
+
+            border-radius: 10px;
+
+            background: #fff7ed;
+
+            border: 1px solid #fed7aa;
+
+            color: #9a3412;
+
+            font-size: 12px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =====================================================
+           ERROR
+        ====================================================== */
+
+        .error-box {
+            display: none;
+
+            margin-top: 18px;
+
+            padding: 13px 15px;
+
+            border-radius: 10px;
+
+            background: #fef2f2;
+
+            border: 1px solid #fecaca;
+
+            color: #b91c1c;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =====================================================
+           LOADING
+        ====================================================== */
+
+        .loading {
+            display: none;
+
+            text-align: center;
+
+            padding: 45px 20px;
+        }
+
+        .spinner {
+            width: 38px;
+
+            height: 38px;
+
+            border: 4px solid #e5e7eb;
+
+            border-top-color: #6657ff;
+
+            border-radius: 50%;
+
+            animation: spin 0.8s linear infinite;
+
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading p {
+            color: #6b7280;
+
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ====================================================== */
+
+        @media (max-width: 800px) {
+
+            .planner-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .result-card {
+                min-height: auto;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 0 16px;
+
+                height: 70px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .username {
+                display: none;
+            }
+
+            .avatar {
+                width: 38px;
+
+                height: 38px;
+            }
+
+            .logout-btn {
+                padding: 9px 13px;
+
+                font-size: 12px;
+            }
+
+            .page-container {
+                padding:
+                    28px 15px 50px;
+            }
+
+            .page-header h1 {
+                font-size: 28px;
+            }
+
+            .planner-card,
+            .result-card {
+                padding: 22px;
+            }
+
+            .items-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-card {
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+            .product-price {
+                align-self: flex-end;
+
+                padding-left: 0;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <header class="navbar">
+
+        <a
+            href="/dashboard"
+            class="logo"
+        >
+            Pocket<span>Smart AI</span>
+        </a>
+
+        <div class="navbar-right">
+
+            <div
+                class="avatar"
+                id="avatar"
+            >
+                S
+            </div>
+
+            <span
+                class="username"
+                id="username"
+            >
+                User
+            </span>
+
+            <a
+                href="/logout"
+                class="logout-btn"
+            >
+                Logout
+            </a>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="page-container">
+
+
+        <!-- BACK -->
+
+        <a
+            href="/dashboard"
+            class="back-link"
+        >
+            ← Back to Dashboard
+        </a>
+
+
+
+        <!-- PAGE HEADER -->
+
+        <section class="page-header">
+
+            <div class="page-icon">
+                🏠
+            </div>
+
+            <h1>
+                Home Interior Planner
+            </h1>
+
+            <p>
+                Plan your dream room with smart product
+                recommendations that match your style
+                and stay within your budget.
+            </p>
+
+        </section>
+
+
+
+        <!-- =================================================
+             PLANNER LAYOUT
+        ================================================== -->
+
+        <div class="planner-layout">
+
+
+            <!-- =================================================
+                 FORM
+            ================================================== -->
+
+            <section class="planner-card">
+
+                <div class="card-title">
+
+                    <div class="card-title-icon">
+                        ✨
+                    </div>
+
+                    <h2>
+                        Tell Us Your Preferences
+                    </h2>
+
+                </div>
+
+
+
+                <!-- BUDGET -->
+
+                <div class="form-group">
+
+                    <label for="budget">
+                        Your Budget
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="currency">
+                            ₹
+                        </span>
+
+                        <input
+                            type="number"
+                            id="budget"
+                            min="1"
+                            placeholder="Enter your budget"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ROOM -->
+
+                <div class="form-group">
+
+                    <label for="room">
+                        Room
+                    </label>
+
+                    <select id="room">
+
+                        <option value="bedroom">
+                            Bedroom
+                        </option>
+
+                        <option value="living">
+                            Living Room
+                        </option>
+
+                        <option value="study">
+                            Study Room
+                        </option>
+
+                        <option value="kitchen">
+                            Kitchen
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- STYLE -->
+
+                <div class="form-group">
+
+                    <label for="style">
+                        Interior Style
+                    </label>
+
+                    <select id="style">
+
+                        <option value="modern">
+                            Modern
+                        </option>
+
+                        <option value="minimal">
+                            Minimal
+                        </option>
+
+                        <option value="classic">
+                            Classic
+                        </option>
+
+                        <option value="traditional">
+                            Traditional
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- ITEMS -->
+
+                <div class="form-group">
+
+                    <label class="items-label">
+                        What do you need?
+                    </label>
+
+                    <div class="items-grid">
+
+
+                        <!-- BED -->
+
+                        <div class="item-option">
+
+                            <input
+                                type="checkbox"
+                                id="item-bed"
+                                name="required_items"
+                                value="bed"
+                                checked
+                            >
+
+                            <label for="item-bed">
+
+                                <span class="check-box">
+                                    ✓
+                                </span>
+
+                                🛏️ Bed
+
+                            </label>
+
+                        </div>
+
+
+
+                        <!-- CHAIR -->
+
+                        <div class="item-option">
+
+                            <input
+                                type="checkbox"
+                                id="item-chair"
+                                name="required_items"
+                                value="chair"
+                                checked
+                            >
+
+                            <label for="item-chair">
+
+                                <span class="check-box">
+                                    ✓
+                                </span>
+
+                                🪑 Chair
+
+                            </label>
+
+                        </div>
+
+
+
+                        <!-- LAMP -->
+
+                        <div class="item-option">
+
+                            <input
+                                type="checkbox"
+                                id="item-lamp"
+                                name="required_items"
+                                value="lamp"
+                                checked
+                            >
+
+                            <label for="item-lamp">
+
+                                <span class="check-box">
+                                    ✓
+                                </span>
+
+                                💡 Lamp
+
+                            </label>
+
+                        </div>
+
+
+
+                        <!-- TABLE -->
+
+                        <div class="item-option">
+
+                            <input
+                                type="checkbox"
+                                id="item-table"
+                                name="required_items"
+                                value="table"
+                            >
+
+                            <label for="item-table">
+
+                                <span class="check-box">
+                                    ✓
+                                </span>
+
+                                🪵 Table
+
+                            </label>
+
+                        </div>
+
+
+
+                        <!-- SOFA -->
+
+                        <div class="item-option">
+
+                            <input
+                                type="checkbox"
+                                id="item-sofa"
+                                name="required_items"
+                                value="sofa"
+                            >
+
+                            <label for="item-sofa">
+
+                                <span class="check-box">
+                                    ✓
+                                </span>
+
+                                🛋️ Sofa
+
+                            </label>
+
+                        </div>
+
+
+
+                        <!-- STORAGE -->
+
+                        <div class="item-option">
+
+                            <input
+                                type="checkbox"
+                                id="item-storage"
+                                name="required_items"
+                                value="storage"
+                            >
+
+                            <label for="item-storage">
+
+                                <span class="check-box">
+                                    ✓
+                                </span>
+
+                                🗄️ Storage
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- GENERATE -->
+
+                <button
+                    type="button"
+                    class="generate-btn"
+                    id="generateBtn"
+                >
+                    ✨ Generate Recommendation
+                </button>
+
+
+
+                <!-- TIP -->
+
+                <div class="tip">
+
+                    💡 <strong>Tip:</strong>
+
+                    Select only the items you really need.
+                    PocketSmart AI will try to keep the
+                    recommendations within your budget.
+
+                </div>
+
+
+
+                <!-- ERROR -->
+
+                <div
+                    class="error-box"
+                    id="errorBox"
+                ></div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 RESULT
+            ================================================== -->
+
+            <section class="result-card">
+
+
+                <!-- EMPTY STATE -->
+
+                <div
+                    class="result-empty"
+                    id="emptyState"
+                >
+
+                    <div class="result-empty-icon">
+                        🤖
+                    </div>
+
+                    <h3>
+                        Your recommendation will appear here
+                    </h3>
+
+                    <p>
+                        Enter your budget, choose your room
+                        and style, select the items you need,
+                        then click Generate Recommendation.
+                    </p>
+
+                </div>
+
+
+
+                <!-- LOADING -->
+
+                <div
+                    class="loading"
+                    id="loadingState"
+                >
+
+                    <div class="spinner"></div>
+
+                    <p>
+                        PocketSmart AI is creating your
+                        personalized recommendation...
+                    </p>
+
+                </div>
+
+
+
+                <!-- RESULTS -->
+
+                <div
+                    id="resultState"
+                    style="display:none;"
+                >
+
+                    <div class="result-header">
+
+                        <h2>
+                            ✨ Your Recommendation
+                        </h2>
+
+                        <span class="success-badge">
+                            Within Budget
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- PRODUCTS -->
+
+                    <div
+                        class="products-list"
+                        id="productsList"
+                    ></div>
+
+
+
+                    <!-- SUMMARY -->
+
+                    <div class="summary">
+
+                        <div class="summary-box">
+
+                            <span>
+                                Total Cost
+                            </span>
+
+                            <strong
+                                id="totalCost"
+                            >
+                                ₹0
+                            </strong>
+
+                        </div>
+
+                        <div
+                            class="summary-box remaining"
+                        >
+
+                            <span>
+                                Remaining Budget
+                            </span>
+
+                            <strong
+                                id="remainingBudget"
+                            >
+                                ₹0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- AI -->
+
+                    <div class="ai-box">
+
+                        <div class="ai-title">
+                            🤖 PocketSmart AI
+                        </div>
+
+                        <div
+                            class="ai-text"
+                            id="aiExplanation"
+                        ></div>
+
+                    </div>
+
+
+
+                    <!-- UNAVAILABLE -->
+
+                    <div
+                        class="unavailable-box"
+                        id="unavailableBox"
+                        style="display:none;"
+                    ></div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+
+        /* =====================================================
+           SESSION INFO
+        ====================================================== */
+
+        async function loadUser() {
+
+            try {
+
+                const response =
+                    await fetch("/session-info");
+
+                const data =
+                    await response.json();
+
+
+                if (!data.logged_in) {
+
+                    window.location.href =
+                        "/login";
+
+                    return;
+
+                }
+
+
+                if (data.user) {
+
+                    const name =
+                        data.user.name || "User";
+
+
+                    document.getElementById(
+                        "username"
+                    ).textContent = name;
+
+
+                    document.getElementById(
+                        "avatar"
+                    ).textContent =
+                        name
+                            .charAt(0)
+                            .toUpperCase();
+
+                }
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Session check failed:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        loadUser();
+
+
+
+        /* =====================================================
+           FORMAT MONEY
+        ====================================================== */
+
+        function formatMoney(value) {
+
+            return "₹" +
+                Number(value).toLocaleString(
+                    "en-IN",
+                    {
+                        maximumFractionDigits: 0
+                    }
+                );
+
+        }
+
+
+
+        /* =====================================================
+           PRODUCT ICON
+        ====================================================== */
+
+        function getProductIcon(category) {
+
+            const icons = {
+
+                bed: "🛏️",
+
+                chair: "🪑",
+
+                lamp: "💡",
+
+                table: "🪵",
+
+                sofa: "🛋️",
+
+                storage: "🗄️",
+
+                desk: "🖥️",
+
+                default: "🏠"
+
+            };
+
+
+            return (
+
+                icons[
+                    String(category).toLowerCase()
+                ]
+
+                || icons.default
+
+            );
+
+        }
+
+
+
+        /* =====================================================
+           GENERATE RECOMMENDATION
+        ====================================================== */
+
+        async function generateRecommendation() {
+
+
+            const budgetInput =
+                document.getElementById(
+                    "budget"
+                );
+
+
+            const roomInput =
+                document.getElementById(
+                    "room"
+                );
+
+
+            const styleInput =
+                document.getElementById(
+                    "style"
+                );
+
+
+            const budget =
+                Number(
+                    budgetInput.value
+                );
+
+
+            const room =
+                roomInput.value;
+
+
+            const style =
+                styleInput.value;
+
+
+
+            /* -----------------------------------------------
+               VALIDATE BUDGET
+            ------------------------------------------------ */
+
+            if (
+                !budget ||
+                budget <= 0
+            ) {
+
+                showError(
+                    "Please enter a valid budget."
+                );
+
+                budgetInput.focus();
+
+                return;
+
+            }
+
+
+
+            /* -----------------------------------------------
+               GET ITEMS
+            ------------------------------------------------ */
+
+            const checkedItems =
+                document.querySelectorAll(
+                    'input[name="required_items"]:checked'
+                );
+
+
+            const requiredItems =
+                Array.from(
+                    checkedItems
+                ).map(
+                    item => item.value
+                );
+
+
+            if (
+                requiredItems.length === 0
+            ) {
+
+                showError(
+                    "Please select at least one item."
+                );
+
+                return;
+
+            }
+
+
+
+            /* -----------------------------------------------
+               RESET UI
+            ------------------------------------------------ */
+
+            hideError();
+
+
+            document.getElementById(
+                "emptyState"
+            ).style.display = "none";
+
+
+            document.getElementById(
+                "resultState"
+            ).style.display = "none";
+
+
+            document.getElementById(
+                "loadingState"
+            ).style.display = "block";
+
+
+            const button =
+                document.getElementById(
+                    "generateBtn"
+                );
+
+
+            button.disabled = true;
+
+
+            button.textContent =
+                "⏳ Generating...";
+
+
+
+            try {
+
+
+                /* -------------------------------------------
+                   API REQUEST
+                -------------------------------------------- */
+
+                const response =
+                    await fetch(
+                        "/generate-home",
+                        {
+
+                            method: "POST",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json"
+
+                            },
+
+                            body:
+                                JSON.stringify({
+
+                                    budget:
+                                        budget,
+
+                                    room:
+                                        room,
+
+                                    style:
+                                        style,
+
+                                    required_items:
+                                        requiredItems
+
+                                })
+
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+
+                if (
+                    !response.ok
+                ) {
+
+                    throw new Error(
+
+                        data.detail ||
+
+                        "Unable to generate recommendation."
+
+                    );
+
+                }
+
+
+
+                if (
+                    !data.success
+                ) {
+
+                    throw new Error(
+
+                        data.message ||
+
+                        "Recommendation failed."
+
+                    );
+
+                }
+
+
+
+                displayResults(data);
+
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Recommendation error:",
+                    error
+                );
+
+
+                showError(
+
+                    error.message ||
+
+                    "Something went wrong. Please try again."
+
+                );
+
+            }
+
+            finally {
+
+                document.getElementById(
+                    "loadingState"
+                ).style.display = "none";
+
+
+                button.disabled = false;
+
+
+                button.textContent =
+                    "✨ Generate Recommendation";
+
+            }
+
+        }
+
+
+
+        /* =====================================================
+           DISPLAY RESULTS
+        ====================================================== */
+
+        function displayResults(data) {
+
+
+            document.getElementById(
+                "resultState"
+            ).style.display = "block";
+
+
+            const productsList =
+                document.getElementById(
+                    "productsList"
+                );
+
+
+            productsList.innerHTML = "";
+
+
+            const products =
+                data.recommended_products
+                || [];
+
+
+
+            /* =================================================
+               NO PRODUCTS
+            ================================================= */
+
+            if (
+                products.length === 0
+            ) {
+
+                productsList.innerHTML = `
+
+                    <div
+                        style="
+                            padding:20px;
+                            text-align:center;
+                            color:#6b7280;
+                            font-size:13px;
+                            background:#f8f9fc;
+                            border-radius:12px;
+                            border:1px solid #edf0f5;
+                        "
+                    >
+
+                        <div
+                            style="
+                                font-size:32px;
+                                margin-bottom:8px;
+                            "
+                        >
+                            🔍
+                        </div>
+
+                        <strong
+                            style="
+                                display:block;
+                                color:#374151;
+                                margin-bottom:5px;
+                            "
+                        >
+                            No matching products found
+                        </strong>
+
+                        Try increasing your budget
+                        or selecting different items.
+
+                    </div>
+
+                `;
+
+            }
+
+
+
+            /* =================================================
+               PRODUCT CARDS
+            ================================================= */
+
+            products.forEach(
+                product => {
+
+                    const card =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    card.className =
+                        "product-card";
+
+
+                    card.innerHTML = `
+
+                        <div
+                            class="product-info"
+                        >
+
+                            <div
+                                class="product-icon"
+                            >
+                                ${getProductIcon(
+                                    product.category
+                                )}
+                            </div>
+
+
+                            <div>
+
+                                <div
+                                    class="product-name"
+                                >
+                                    ${escapeHtml(
+                                        product.name
+                                    )}
+                                </div>
+
+
+                                <div
+                                    class="product-category"
+                                >
+                                    ${escapeHtml(
+                                        product.category
+                                        || "Product"
+                                    )}
+                                </div>
+
+
+                                <!-- =================================
+                                     SHOPPING LINKS
+                                ================================== -->
+
+                                <div
+                                    class="product-links"
+                                >
+
+                                    ${
+                                        product.amazon_url
+                                        ?
+
+                                        `
+
+                                            <a
+                                                href="${escapeHtml(
+                                                    product.amazon_url
+                                                )}"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                class="shop-link amazon-link"
+                                            >
+                                                🛒 Amazon
+                                            </a>
+
+                                        `
+
+                                        :
+
+                                        ""
+
+                                    }
+
+
+                                    ${
+                                        product.flipkart_url
+                                        ?
+
+                                        `
+
+                                            <a
+                                                href="${escapeHtml(
+                                                    product.flipkart_url
+                                                )}"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                class="shop-link flipkart-link"
+                                            >
+                                                🛍️ Flipkart
+                                            </a>
+
+                                        `
+
+                                        :
+
+                                        ""
+
+                                    }
+
+
+                                    ${
+                                        product.ikea_url
+                                        ?
+
+                                        `
+
+                                            <a
+                                                href="${escapeHtml(
+                                                    product.ikea_url
+                                                )}"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                class="shop-link ikea-link"
+                                            >
+                                                🏠 IKEA
+                                            </a>
+
+                                        `
+
+                                        :
+
+                                        ""
+
+                                    }
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="product-price"
+                        >
+
+                            ${formatMoney(
+                                product.price
+                            )}
+
+                        </div>
+
+                    `;
+
+
+                    productsList.appendChild(
+                        card
+                    );
+
+                }
+            );
+
+
+
+            /* =================================================
+               SUMMARY
+            ================================================= */
+
+            document.getElementById(
+                "totalCost"
+            ).textContent =
+
+                formatMoney(
+                    data.total_cost || 0
+                );
+
+
+            document.getElementById(
+                "remainingBudget"
+            ).textContent =
+
+                formatMoney(
+                    data.remaining_budget || 0
+                );
+
+
+
+            /* =================================================
+               AI EXPLANATION
+            ================================================= */
+
+            document.getElementById(
+                "aiExplanation"
+            ).textContent =
+
+                data.ai_explanation
+
+                ||
+
+                "Your recommendation has been generated based on your selected budget and preferences.";
+
+
+
+            /* =================================================
+               UNAVAILABLE ITEMS
+            ================================================= */
+
+            const unavailableBox =
+                document.getElementById(
+                    "unavailableBox"
+                );
+
+
+            const unavailable =
+                data.unavailable_items
+                || [];
+
+
+            if (
+                unavailable.length > 0
+            ) {
+
+                unavailableBox.style.display =
+                    "block";
+
+
+                unavailableBox.innerHTML = `
+
+                    <strong>
+                        Some items could not be included:
+                    </strong>
+
+                    ${unavailable
+                        .map(
+                            item =>
+                                escapeHtml(item)
+                        )
+                        .join(", ")
+                    }
+
+                    <br><br>
+
+                    Try increasing your budget
+                    or choosing fewer required items.
+
+                `;
+
+            }
+
+            else {
+
+                unavailableBox.style.display =
+                    "none";
+
+            }
+
+
+
+            /* =================================================
+               BADGE
+            ================================================= */
+
+            const badge =
+                document.querySelector(
+                    ".success-badge"
+                );
+
+
+            const remaining =
+                Number(
+                    data.remaining_budget || 0
+                );
+
+
+            if (
+                remaining >= 0
+            ) {
+
+                badge.textContent =
+                    "✓ Within Budget";
+
+                badge.style.background =
+                    "#dcfce7";
+
+                badge.style.color =
+                    "#15803d";
+
+            }
+
+            else {
+
+                badge.textContent =
+                    "Over Budget";
+
+                badge.style.background =
+                    "#fee2e2";
+
+                badge.style.color =
+                    "#b91c1c";
+
+            }
+
+        }
+
+
+
+        /* =====================================================
+           ERROR
+        ====================================================== */
+
+        function showError(message) {
+
+            const errorBox =
+                document.getElementById(
+                    "errorBox"
+                );
+
+
+            errorBox.textContent =
+                message;
+
+
+            errorBox.style.display =
+                "block";
+
+        }
+
+
+        function hideError() {
+
+            document.getElementById(
+                "errorBox"
+            ).style.display =
+                "none";
+
+        }
+
+
+
+        /* =====================================================
+           HTML ESCAPE
+        ====================================================== */
+
+        function escapeHtml(value) {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.textContent =
+                value ?? "";
+
+
+            return div.innerHTML;
+
+        }
+
+
+
+        /* =====================================================
+           BUTTON EVENT
+        ====================================================== */
+
+        document
+            .getElementById(
+                "generateBtn"
+            )
+            .addEventListener(
+                "click",
+                generateRecommendation
+            );
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Login - PocketSmart AI</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/css/style.css"
+    >
+
+</head>
+
+<body>
+
+    <header>
+
+        <h1>💰 PocketSmart AI</h1>
+
+        <p>
+            Smart Budget and Recommendation Assistant
+        </p>
+
+    </header>
+
+
+    <main>
+
+        <section class="planner-card">
+
+            <h2>🔐 Login</h2>
+
+            <p>
+                Login to access your PocketSmart AI account.
+            </p>
+
+
+            <form id="loginForm">
+
+                <label for="email">
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    required
+                >
+
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    required
+                >
+
+
+                <button type="submit">
+                    Login
+                </button>
+
+            </form>
+
+
+            <div id="loginMessage"></div>
+
+
+            <p style="margin-top: 20px;">
+
+                Don't have an account?
+
+                <a href="/register">
+                    Create Account
+                </a>
+
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <script src="/static/js/login.js"></script>
+
+</body>
+
+</html>
