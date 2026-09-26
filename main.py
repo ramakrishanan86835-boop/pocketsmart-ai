@@ -33,7 +33,12 @@ from database import (
 # SEED PRODUCTS
 # ==================================================
 
+# ==================================================
+# SEED PRODUCTS
+# ==================================================
+
 from seed_products import insert_products
+from add_ecommerce_links import update_product_links
 
 from gemini_service import (
     generate_recommendation_explanation,
@@ -57,9 +62,14 @@ load_dotenv()
 # INITIALIZE DATABASE
 # ==================================================
 
+# ==================================================
+# INITIALIZE DATABASE
+# ==================================================
+
 create_table()
 add_ecommerce_columns()
 insert_products()
+update_product_links()
 
 
 # ==================================================
