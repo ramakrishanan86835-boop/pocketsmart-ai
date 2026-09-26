@@ -18,11 +18,15 @@ from starlette.middleware.sessions import SessionMiddleware
 from pydantic import BaseModel, Field
 
 from database import (
+    get_connection,
+    create_table,
+    add_ecommerce_columns,
     find_products,
     find_fallback_products,
-    get_connection,
+    find_cheaper_product,
     add_history,
-    get_user_history
+    get_user_history,
+    get_history_by_id
 )
 
 from gemini_service import (
@@ -36,6 +40,12 @@ from password_utils import (
 )
 
 
+# ==================================================
+# INITIALIZE DATABASE
+# ==================================================
+
+create_table()
+add_ecommerce_columns()
 # ==================================================
 # LOAD ENVIRONMENT VARIABLES
 # ==================================================

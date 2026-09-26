@@ -20,7 +20,7 @@ def get_connection():
 
 
 # ==================================================
-# CREATE PRODUCTS TABLE
+# CREATE DATABASE TABLES
 # ==================================================
 
 def create_table():
@@ -28,6 +28,11 @@ def create_table():
     connection = get_connection()
 
     cursor = connection.cursor()
+
+
+    # ==================================================
+    # CREATE PRODUCTS TABLE
+    # ==================================================
 
     cursor.execute(
         """
@@ -54,6 +59,51 @@ def create_table():
         """
     )
 
+
+    # ==================================================
+    # CREATE USERS TABLE
+    # ==================================================
+
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS users (
+
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+            name TEXT NOT NULL,
+
+            email TEXT NOT NULL UNIQUE,
+
+            password TEXT NOT NULL
+        )
+        """
+    )
+
+
+    # ==================================================
+    # CREATE HISTORY TABLE
+    # ==================================================
+
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS history (
+
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+            user_id INTEGER NOT NULL,
+
+            planner_type TEXT NOT NULL,
+
+            input_data TEXT NOT NULL,
+
+            result_data TEXT NOT NULL,
+
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+        """
+    )
+
+
     connection.commit()
 
     connection.close()
@@ -78,6 +128,7 @@ def add_ecommerce_columns():
         for column in cursor.fetchall()
     ]
 
+
     # ------------------------------------------
     # AMAZON
     # ------------------------------------------
@@ -94,6 +145,7 @@ def add_ecommerce_columns():
         print(
             "Added amazon_url column."
         )
+
 
     # ------------------------------------------
     # FLIPKART
@@ -112,6 +164,7 @@ def add_ecommerce_columns():
             "Added flipkart_url column."
         )
 
+
     # ------------------------------------------
     # IKEA
     # ------------------------------------------
@@ -128,6 +181,7 @@ def add_ecommerce_columns():
         print(
             "Added ikea_url column."
         )
+
 
     connection.commit()
 
@@ -199,6 +253,7 @@ def find_fallback_products(
 
     connection = get_connection()
 
+
     # ==================================================
     # LEVEL 1
     # EXACT ROOM + STYLE + CATEGORY
@@ -236,6 +291,7 @@ def find_fallback_products(
         )
 
     ).fetchall()
+
 
     if products:
 
@@ -281,6 +337,7 @@ def find_fallback_products(
         )
 
     ).fetchall()
+
 
     if products:
 
@@ -384,6 +441,7 @@ def find_cheaper_product(
     ).fetchone()
 
     connection.close()
+
 
     if product:
 
@@ -503,6 +561,7 @@ def get_history_by_id(
 
     connection.close()
 
+
     if history:
 
         return dict(history)
@@ -521,5 +580,5 @@ if __name__ == "__main__":
     add_ecommerce_columns()
 
     print(
-        "Database and product table are ready."
+        "Database tables are ready."
     )
