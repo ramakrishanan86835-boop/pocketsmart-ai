@@ -20,9 +20,7 @@
             padding: 0;
         }
 
-
         body {
-
             font-family:
                 Arial,
                 Helvetica,
@@ -35,18 +33,16 @@
             min-height: 100vh;
         }
 
-
         a {
             text-decoration: none;
         }
 
 
-        /* =====================================
+        /* ================================
            NAVBAR
-        ====================================== */
+        ================================= */
 
         .navbar {
-
             height: 78px;
 
             background: white;
@@ -69,9 +65,7 @@
             z-index: 100;
         }
 
-
         .logo {
-
             font-size: 25px;
 
             font-weight: 700;
@@ -79,15 +73,11 @@
             color: #111827;
         }
 
-
         .logo span {
-
             color: #6657ff;
         }
 
-
         .nav-right {
-
             display: flex;
 
             align-items: center;
@@ -95,11 +85,8 @@
             gap: 15px;
         }
 
-
         .avatar {
-
             width: 42px;
-
             height: 42px;
 
             border-radius: 50%;
@@ -124,9 +111,7 @@
             font-weight: 700;
         }
 
-
         .user-name {
-
             font-size: 14px;
 
             color: #374151;
@@ -134,9 +119,7 @@
             font-weight: 600;
         }
 
-
         .logout-btn {
-
             padding:
                 9px 16px;
 
@@ -153,9 +136,7 @@
             transition: 0.2s;
         }
 
-
         .logout-btn:hover {
-
             background: #dc2626;
 
             transform:
@@ -163,12 +144,11 @@
         }
 
 
-        /* =====================================
+        /* ================================
            MAIN
-        ====================================== */
+        ================================= */
 
         .container {
-
             max-width: 1150px;
 
             margin: auto;
@@ -178,18 +158,15 @@
         }
 
 
-        /* =====================================
+        /* ================================
            WELCOME
-        ====================================== */
+        ================================= */
 
         .welcome {
-
-            margin-bottom: 35px;
+            margin-bottom: 28px;
         }
 
-
         .welcome h1 {
-
             font-size: 32px;
 
             color: #111827;
@@ -197,15 +174,11 @@
             margin-bottom: 8px;
         }
 
-
         .welcome h1 span {
-
             color: #6657ff;
         }
 
-
         .welcome p {
-
             color: #6b7280;
 
             font-size: 15px;
@@ -214,12 +187,87 @@
         }
 
 
-        /* =====================================
+        /* ================================
+           STATS
+        ================================= */
+
+        .stats-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 35px;
+        }
+
+        .stat-card {
+            background: white;
+
+            border:
+                1px solid #edf0f5;
+
+            border-radius: 15px;
+
+            padding: 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            box-shadow:
+                0 5px 20px
+                rgba(
+                    15,
+                    23,
+                    42,
+                    0.05
+                );
+        }
+
+        .stat-icon {
+            width: 48px;
+
+            height: 48px;
+
+            border-radius: 12px;
+
+            background: #f1efff;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 23px;
+
+            flex-shrink: 0;
+        }
+
+        .stat-content h3 {
+            font-size: 22px;
+
+            color: #111827;
+
+            margin-bottom: 3px;
+        }
+
+        .stat-content p {
+            font-size: 12px;
+
+            color: #6b7280;
+        }
+
+
+        /* ================================
            QUICK ACTIONS
-        ====================================== */
+        ================================= */
 
         .quick-actions {
-
             display: grid;
 
             grid-template-columns:
@@ -230,9 +278,7 @@
             margin-bottom: 40px;
         }
 
-
         .quick-card {
-
             background: white;
 
             border:
@@ -260,9 +306,7 @@
                 );
         }
 
-
         .quick-card:hover {
-
             transform:
                 translateY(-3px);
 
@@ -276,9 +320,7 @@
                 );
         }
 
-
         .quick-icon {
-
             width: 52px;
 
             height: 52px;
@@ -298,15 +340,11 @@
             flex-shrink: 0;
         }
 
-
         .quick-content {
-
             flex: 1;
         }
 
-
         .quick-content h3 {
-
             font-size: 16px;
 
             color: #111827;
@@ -314,9 +352,7 @@
             margin-bottom: 5px;
         }
 
-
         .quick-content p {
-
             font-size: 12px;
 
             color: #6b7280;
@@ -324,9 +360,7 @@
             line-height: 1.5;
         }
 
-
         .arrow {
-
             color: #6657ff;
 
             font-size: 20px;
@@ -335,12 +369,11 @@
         }
 
 
-        /* =====================================
-           SECTION TITLE
-        ====================================== */
+        /* ================================
+           SECTION HEADER
+        ================================= */
 
         .section-header {
-
             display: flex;
 
             justify-content:
@@ -351,17 +384,13 @@
             margin-bottom: 20px;
         }
 
-
         .section-header h2 {
-
             font-size: 21px;
 
             color: #111827;
         }
 
-
         .history-link {
-
             color: #6657ff;
 
             font-size: 13px;
@@ -369,19 +398,16 @@
             font-weight: 700;
         }
 
-
         .history-link:hover {
-
             color: #4f46e5;
         }
 
 
-        /* =====================================
+        /* ================================
            PLANNER GRID
-        ====================================== */
+        ================================= */
 
         .planner-grid {
-
             display: grid;
 
             grid-template-columns:
@@ -390,9 +416,7 @@
             gap: 22px;
         }
 
-
         .planner-card {
-
             background: white;
 
             border:
@@ -418,9 +442,7 @@
             overflow: hidden;
         }
 
-
         .planner-card:hover {
-
             transform:
                 translateY(-5px);
 
@@ -434,9 +456,7 @@
                 );
         }
 
-
         .planner-card::before {
-
             content: "";
 
             position: absolute;
@@ -457,9 +477,7 @@
                 );
         }
 
-
         .planner-icon {
-
             width: 58px;
 
             height: 58px;
@@ -479,9 +497,7 @@
             margin-bottom: 18px;
         }
 
-
         .planner-card h3 {
-
             font-size: 19px;
 
             color: #111827;
@@ -489,9 +505,7 @@
             margin-bottom: 8px;
         }
 
-
         .planner-card p {
-
             font-size: 13px;
 
             color: #6b7280;
@@ -503,9 +517,7 @@
             margin-bottom: 20px;
         }
 
-
         .planner-btn {
-
             display: block;
 
             text-align: center;
@@ -528,9 +540,7 @@
             transition: 0.2s;
         }
 
-
         .planner-btn:hover {
-
             background: #5648e8;
 
             transform:
@@ -538,12 +548,11 @@
         }
 
 
-        /* =====================================
+        /* ================================
            INFO BANNER
-        ====================================== */
+        ================================= */
 
         .info-banner {
-
             margin-top: 35px;
 
             background:
@@ -567,9 +576,7 @@
             gap: 18px;
         }
 
-
         .info-icon {
-
             width: 50px;
 
             height: 50px;
@@ -589,9 +596,7 @@
             flex-shrink: 0;
         }
 
-
         .info-banner h3 {
-
             font-size: 16px;
 
             color: #111827;
@@ -599,9 +604,7 @@
             margin-bottom: 5px;
         }
 
-
         .info-banner p {
-
             font-size: 12px;
 
             color: #6b7280;
@@ -610,12 +613,11 @@
         }
 
 
-        /* =====================================
+        /* ================================
            FOOTER
-        ====================================== */
+        ================================= */
 
         .footer {
-
             text-align: center;
 
             margin-top: 55px;
@@ -631,12 +633,11 @@
         }
 
 
-        /* =====================================
+        /* ================================
            LOADING
-        ====================================== */
+        ================================= */
 
         .loading {
-
             text-align: center;
 
             padding: 80px 20px;
@@ -644,9 +645,7 @@
             color: #6b7280;
         }
 
-
         .spinner {
-
             width: 38px;
 
             height: 38px;
@@ -666,75 +665,67 @@
                 0 auto 15px;
         }
 
-
         @keyframes spin {
-
             to {
-                transform: rotate(360deg);
+                transform:
+                    rotate(360deg);
             }
-
         }
 
 
-        /* =====================================
+        /* ================================
            RESPONSIVE
-        ====================================== */
+        ================================= */
 
         @media (max-width: 900px) {
 
             .planner-grid {
-
                 grid-template-columns:
                     repeat(2, 1fr);
             }
 
+            .stats-grid {
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
         }
 
 
         @media (max-width: 650px) {
 
             .navbar {
-
                 padding: 0 17px;
             }
 
-
             .user-name {
-
                 display: none;
             }
 
-
             .container {
-
                 padding:
                     32px 16px 50px;
             }
 
-
             .welcome h1 {
-
                 font-size: 27px;
             }
 
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
 
             .quick-actions {
-
                 grid-template-columns: 1fr;
             }
-
 
             .planner-grid {
-
                 grid-template-columns: 1fr;
             }
 
-
             .info-banner {
-
-                align-items: flex-start;
+                align-items:
+                    flex-start;
             }
-
         }
 
     </style>
@@ -745,12 +736,11 @@
 <body>
 
 
-    <!-- ==================================================
+    <!-- ================================
          NAVBAR
-    =================================================== -->
+    ================================= -->
 
     <header class="navbar">
-
 
         <a
             href="/"
@@ -762,7 +752,6 @@
 
         <div class="nav-right">
 
-
             <div
                 class="avatar"
                 id="avatar"
@@ -770,14 +759,12 @@
                 S
             </div>
 
-
             <span
                 class="user-name"
                 id="userName"
             >
                 User
             </span>
-
 
             <a
                 href="/logout"
@@ -791,10 +778,9 @@
     </header>
 
 
-
-    <!-- ==================================================
+    <!-- ================================
          MAIN
-    =================================================== -->
+    ================================= -->
 
     <main class="container">
 
@@ -811,7 +797,6 @@
                 👋
             </h1>
 
-
             <p>
                 Plan smarter, stay within your budget,
                 and let PocketSmart AI help you make
@@ -821,15 +806,84 @@
         </section>
 
 
+        <!-- ================================
+             STATISTICS
+        ================================= -->
 
-        <!-- ==================================================
+        <section class="stats-grid">
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📋
+                </div>
+
+                <div class="stat-content">
+
+                    <h3 id="historyCount">
+                        0
+                    </h3>
+
+                    <p>
+                        Recommendations
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🧠
+                </div>
+
+                <div class="stat-content">
+
+                    <h3>
+                        3
+                    </h3>
+
+                    <p>
+                        Smart Planners
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🔐
+                </div>
+
+                <div class="stat-content">
+
+                    <h3>
+                        Secure
+                    </h3>
+
+                    <p>
+                        Account Status
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================
              QUICK ACTIONS
-        =================================================== -->
+        ================================= -->
 
         <section class="quick-actions">
 
-
-            <!-- HISTORY -->
 
             <a
                 href="/history-page"
@@ -840,13 +894,11 @@
                     📜
                 </div>
 
-
                 <div class="quick-content">
 
                     <h3>
                         Recommendation History
                     </h3>
-
 
                     <p>
                         View your previous plans
@@ -855,16 +907,12 @@
 
                 </div>
 
-
                 <div class="arrow">
                     →
                 </div>
 
             </a>
 
-
-
-            <!-- HOME -->
 
             <a
                 href="/home-planner"
@@ -875,13 +923,11 @@
                     🏠
                 </div>
 
-
                 <div class="quick-content">
 
                     <h3>
                         Home Planner
                     </h3>
-
 
                     <p>
                         Plan your room within
@@ -889,7 +935,6 @@
                     </p>
 
                 </div>
-
 
                 <div class="arrow">
                     →
@@ -900,20 +945,17 @@
         </section>
 
 
-
-        <!-- ==================================================
+        <!-- ================================
              PLANNERS
-        =================================================== -->
+        ================================= -->
 
         <section>
-
 
             <div class="section-header">
 
                 <h2>
                     Smart Planners
                 </h2>
-
 
                 <a
                     href="/history-page"
@@ -923,7 +965,6 @@
                 </a>
 
             </div>
-
 
 
             <div class="planner-grid">
@@ -937,18 +978,15 @@
                         🏠
                     </div>
 
-
                     <h3>
                         Home Planner
                     </h3>
-
 
                     <p>
                         Create a smart room plan
                         based on your budget,
                         room type and preferred style.
                     </p>
-
 
                     <a
                         href="/home-planner"
@@ -960,7 +998,6 @@
                 </div>
 
 
-
                 <!-- PARTY -->
 
                 <div class="planner-card">
@@ -969,18 +1006,15 @@
                         🎉
                     </div>
 
-
                     <h3>
                         Party Planner
                     </h3>
-
 
                     <p>
                         Organize your event with
                         a practical budget for food,
                         venue and decorations.
                     </p>
-
 
                     <a
                         href="/party"
@@ -992,7 +1026,6 @@
                 </div>
 
 
-
                 <!-- JEWELRY -->
 
                 <div class="planner-card">
@@ -1001,18 +1034,15 @@
                         💎
                     </div>
 
-
                     <h3>
                         Jewelry Planner
                     </h3>
-
 
                     <p>
                         Find jewelry ideas based on
                         your occasion, style, budget
                         and outfit.
                     </p>
-
 
                     <a
                         href="/jewelry"
@@ -1028,25 +1058,21 @@
         </section>
 
 
-
-        <!-- ==================================================
-             INFO
-        =================================================== -->
+        <!-- ================================
+             AI INFO
+        ================================= -->
 
         <section class="info-banner">
-
 
             <div class="info-icon">
                 🤖
             </div>
-
 
             <div>
 
                 <h3>
                     Your AI Budget Assistant
                 </h3>
-
 
                 <p>
                     PocketSmart AI combines your
@@ -1058,7 +1084,6 @@
             </div>
 
         </section>
-
 
 
         <!-- FOOTER -->
@@ -1073,34 +1098,31 @@
     </main>
 
 
-
-    <!-- ==================================================
+    <!-- ================================
          JAVASCRIPT
-    =================================================== -->
+    ================================= -->
 
     <script>
-
 
         async function loadDashboard() {
 
             try {
 
-                const response =
+                const sessionResponse =
                     await fetch(
                         "/session-info"
                     );
 
 
-                const data =
-                    await response.json();
+                const sessionData =
+                    await sessionResponse.json();
 
 
                 /*
-                 * If user is not logged in,
-                 * send them to login.
+                 * Check login.
                  */
 
-                if (!data.logged_in) {
+                if (!sessionData.logged_in) {
 
                     window.location.href =
                         "/login";
@@ -1110,13 +1132,13 @@
 
 
                 /*
-                 * Display logged-in user's name.
+                 * Display user information.
                  */
 
-                if (data.user) {
+                if (sessionData.user) {
 
                     const name =
-                        data.user.name
+                        sessionData.user.name
                         || "User";
 
 
@@ -1138,6 +1160,69 @@
                         name
                             .charAt(0)
                             .toUpperCase();
+
+                }
+
+
+                /*
+                 * Load recommendation count.
+                 */
+
+                try {
+
+                    const historyResponse =
+                        await fetch(
+                            "/history"
+                        );
+
+
+                    if (historyResponse.ok) {
+
+                        const historyData =
+                            await historyResponse.json();
+
+
+                        let history = [];
+
+
+                        if (
+                            Array.isArray(
+                                historyData
+                            )
+                        ) {
+
+                            history =
+                                historyData;
+
+                        }
+
+                        else if (
+                            Array.isArray(
+                                historyData.history
+                            )
+                        ) {
+
+                            history =
+                                historyData.history;
+
+                        }
+
+
+                        document.getElementById(
+                            "historyCount"
+                        ).textContent =
+                            history.length;
+
+                    }
+
+                }
+
+                catch (historyError) {
+
+                    console.error(
+                        "History loading error:",
+                        historyError
+                    );
 
                 }
 
