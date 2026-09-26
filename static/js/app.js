@@ -34,11 +34,26 @@ form.addEventListener("submit", async function (event) {
             body: JSON.stringify(requestData)
         });
 
+        /*
+         * Read the response first.
+         * This helps us see the actual FastAPI error
+         * instead of showing only "Unable to connect".
+         */
+        const responseText = await response.text();
+
         if (!response.ok) {
-            throw new Error("Backend request failed");
+            console.error(
+                "Backend error:",
+                response.status,
+                responseText
+            );
+
+            throw new Error(
+                `Backend returned ${response.status}: ${responseText}`
+            );
         }
 
-        const data = await response.json();
+        const data = JSON.parse(responseText);
 
         let html = "";
 
@@ -57,7 +72,7 @@ form.addEventListener("submit", async function (event) {
 
             <p>
                 <strong>Budget:</strong>
-                ₹${data.budget.toLocaleString()}
+                ₹${Number(data.budget).toLocaleString()}
             </p>
         `;
 
@@ -68,7 +83,10 @@ form.addEventListener("submit", async function (event) {
             <h3>🛋️ Recommended Products</h3>
         `;
 
-        if (data.recommended_products.length === 0) {
+        if (
+            !data.recommended_products ||
+            data.recommended_products.length === 0
+        ) {
 
             html += `
                 <p>
@@ -93,8 +111,52 @@ form.addEventListener("submit", async function (event) {
                         </p>
 
                         <p>
-                            💰 <strong>₹${product.price.toLocaleString()}</strong>
+                            💰 <strong>
+                                ₹${Number(product.price).toLocaleString()}
+                            </strong>
                         </p>
+
+                        ${
+                            product.amazon_url
+                                ? `
+                                <a
+                                    href="${product.amazon_url}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    🛒 Amazon
+                                </a>
+                                `
+                                : ""
+                        }
+
+                        ${
+                            product.flipkart_url
+                                ? `
+                                <a
+                                    href="${product.flipkart_url}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    🛒 Flipkart
+                                </a>
+                                `
+                                : ""
+                        }
+
+                        ${
+                            product.ikea_url
+                                ? `
+                                <a
+                                    href="${product.ikea_url}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    🛒 IKEA
+                                </a>
+                                `
+                                : ""
+                        }
 
                     </div>
                 `;
@@ -114,19 +176,22 @@ form.addEventListener("submit", async function (event) {
 
             <p>
                 <strong>Total Cost:</strong>
-                ₹${data.total_cost.toLocaleString()}
+                ₹${Number(data.total_cost).toLocaleString()}
             </p>
 
             <p>
                 <strong>Remaining Budget:</strong>
-                ₹${data.remaining_budget.toLocaleString()}
+                ₹${Number(data.remaining_budget).toLocaleString()}
             </p>
         `;
 
 
         /* Unavailable items */
 
-        if (data.unavailable_items.length > 0) {
+        if (
+            data.unavailable_items &&
+            data.unavailable_items.length > 0
+        ) {
 
             html += `
                 <hr>
@@ -170,16 +235,27 @@ form.addEventListener("submit", async function (event) {
 
     } catch (error) {
 
-        console.error(error);
+        console.error("PocketSmart AI Error:", error);
 
         result.innerHTML = `
-            <p>
-                ❌ Unable to connect to the PocketSmart AI backend.
-            </p>
+            <div class="error-message">
 
-            <p>
-                Please make sure FastAPI is running.
-            </p>
+                <h3>❌ Unable to generate recommendation</h3>
+
+                <p>
+                    The PocketSmart AI server returned an error.
+                </p>
+
+                <p>
+                    <strong>Error:</strong>
+                    ${error.message}
+                </p>
+
+                <p>
+                    Please try again after a few seconds.
+                </p>
+
+            </div>
         `;
     }
 });
