@@ -29,6 +29,12 @@ from database import (
     get_history_by_id
 )
 
+# ==================================================
+# SEED PRODUCTS
+# ==================================================
+
+from seed_products import insert_products
+
 from gemini_service import (
     generate_recommendation_explanation,
     generate_jewelry_recommendation
@@ -41,16 +47,19 @@ from password_utils import (
 
 
 # ==================================================
+# LOAD ENVIRONMENT VARIABLES
+# ==================================================
+
+load_dotenv()
+
+
+# ==================================================
 # INITIALIZE DATABASE
 # ==================================================
 
 create_table()
 add_ecommerce_columns()
-# ==================================================
-# LOAD ENVIRONMENT VARIABLES
-# ==================================================
-
-load_dotenv()
+insert_products()
 
 
 # ==================================================
